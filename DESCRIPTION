@@ -1,0 +1,26 @@
+Package: askgpt
+Type: Package
+Title: Asking GPT about R stuff
+Version: 0.0.1.9000
+Authors@R: person("Johannes", "Gruber", email = "johannesb.gruber@gmail.com",
+  role = c("aut", "cre"))
+Description: A chat interface build on top of the openai package (which wraps some OpenAI API endpoints).
+License: GPL-3
+Depends:
+    R (>= 4.1.0)
+Imports:
+    cli,
+    callr,
+    openai,
+    glue,
+    rlang
+Suggests:
+    covr,
+    knitr,
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
+URL: https://github.com/JBGruber/askgpt
+BugReports: https://github.com/JBGruber/askgpt/issues
+Encoding: UTF-8
+RoxygenNote: 7.2.3
