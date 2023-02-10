@@ -34,11 +34,7 @@ OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ## Example
 
-<figure>
-<video src="man/figures/askgpt.webm" controls=""><a
-href="man/figures/askgpt.webm">video of examples</a></video>
-<figcaption aria-hidden="true">video of examples</figcaption>
-</figure>
+[askgpt.webm](https://user-images.githubusercontent.com/23524101/218146487-04cc20b2-cb13-49dd-90d5-774291769b1f.webm)
 
 ``` r
 library(askgpt)
