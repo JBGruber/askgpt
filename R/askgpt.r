@@ -1,6 +1,8 @@
 #' Ask openai's GPT models a question
 #'
 #' @param prompt What you want to ask
+#' @param return_answer Should the answer be returned as an object instead of
+#'   printing it to the screen?
 #'
 #' @export
 #'
@@ -10,7 +12,8 @@
 #' askgpt("What is wrong with my last command?")
 #' askgpt("Can you help me with the function aes() from ggplot2?")
 #' }
-askgpt <- function(prompt) {
+askgpt <- function(prompt,
+                   return_answer = FALSE) {
 
   traceback_trigger <- c(
     "What is wrong with my last command?",
@@ -51,10 +54,13 @@ askgpt <- function(prompt) {
   while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)
 
   response <- rp$get_result()
-  cli::cli_progress_done()
-  cli::cli_h1("Answer")
-  cli::cli_inform(c(trimws(response[["choices"]][["text"]])))
-
   the$responses <- c(the$responses, response[["choices"]][["text"]])
+  cli::cli_progress_done()
 
+  if (return_answer) {
+    return(c(trimws(response[["choices"]][["text"]])))
+  } else {
+    cli::cli_h1("Answer")
+    cli::cli_inform(c(trimws(response[["choices"]][["text"]])))
+  }
 }

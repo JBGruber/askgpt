@@ -1,0 +1,4 @@
+Name: Document Code
+Description: Use GPT to add roxygen2 style code to selected code.
+Binding: document_code
+Interactive: true

@@ -4,10 +4,13 @@
 \alias{askgpt}
 \title{Ask openai's GPT models a question}
 \usage{
-askgpt(prompt)
+askgpt(prompt, return_answer = FALSE)
 }
 \arguments{
 \item{prompt}{What you want to ask}
+
+\item{return_answer}{Should the answer be returned as an object instead of
+printing it to the screen?}
 }
 \description{
 Ask openai's GPT models a question

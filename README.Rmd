@@ -30,7 +30,7 @@ You can install the development version of askgpt like so:
 remotes::install_github("JBGruber/askgpt")
 ```
 
-Then you should get a key for theopenai API on [this page](https://openai.com/api/).
+Then you should get a key for the openai API on [this page](https://openai.com/api/).
 Save it to your project with:
 
 ```{r}
@@ -46,7 +46,7 @@ OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ## Example
 
-![video of examples](man/figures/askgpt.webm)
+[askgpt.webm](https://user-images.githubusercontent.com/23524101/218146487-04cc20b2-cb13-49dd-90d5-774291769b1f.webm)
 
 ```{r example}
 library(askgpt)
