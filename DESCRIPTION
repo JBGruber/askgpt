@@ -10,9 +10,10 @@ Depends:
 Imports:
     cli,
     callr,
-    openai,
     glue,
-    rlang
+    rlang,
+    httr2,
+    jsonlite
 Suggests:
     covr,
     knitr,

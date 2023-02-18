@@ -1,3 +1,7 @@
+## import rlang to use operators
+#' @import rlang
+
+# package environment
 the <- new.env(parent = emptyenv())
 
 #' Initiate error logging
@@ -9,7 +13,7 @@ the <- new.env(parent = emptyenv())
 #'
 #' @export
 log_init <- function(...) {
-  rlang::global_entrace(...)
+  global_entrace(...)
 }
 
 
@@ -25,5 +29,5 @@ prompt_history <- function(n = Inf) {
 
 #' @inherit prompt_history
 response_history <- function(n = Inf) {
-  return(utils::tail(the$prompts, n))
+  return(utils::tail(the$responses, n))
 }

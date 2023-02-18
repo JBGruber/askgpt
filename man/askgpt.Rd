@@ -4,10 +4,13 @@
 \alias{askgpt}
 \title{Ask openai's GPT models a question}
 \usage{
-askgpt(prompt, return_answer = FALSE)
+askgpt(prompt, stream = FALSE, return_answer = FALSE)
 }
 \arguments{
 \item{prompt}{What you want to ask}
+
+\item{stream}{Return pieces of the answer to the screen instead of waiting
+for the request to be completed.}
 
 \item{return_answer}{Should the answer be returned as an object instead of
 printing it to the screen?}
