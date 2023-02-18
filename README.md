@@ -4,12 +4,21 @@
 # askgpt
 
 <!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of askgpt is to help you to learn R using a ChatGPT-like prompt
-and answer system. It wraps the
-[openai](https://github.com/irudnyts/openai/) package and let’s you ask
-question from the R Console directly.
+The goal of askgpt is to help you to learn R, using a ChatGPT-like
+prompt and answer system. It sends prompts to [openai’s
+API](https://openai.com/api/) directly from R. It also has some
+additional functionality:
+
+- Prompt “What is wrong with my last command?” (or “help!”) to get help
+  on the last error R emmitted
+- Prompt “Can you elaborate on that?” (or “what?”) to ask GPT to
+  elaborate on the last reply
+- Use the RStudio addin to comment, annotate or explain highlighted code
 
 ## Installation
 
@@ -19,7 +28,7 @@ You can install the development version of askgpt like so:
 remotes::install_github("JBGruber/askgpt")
 ```
 
-Then you should get a key for theopenai API on [this
+Then you should get a key for the openai API on [this
 page](https://openai.com/api/). Save it to your project with:
 
 ``` r
@@ -32,17 +41,9 @@ In the format:
 OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
-## Example
+## Demo
 
-[askgpt.webm](https://user-images.githubusercontent.com/23524101/218146487-04cc20b2-cb13-49dd-90d5-774291769b1f.webm)
-
-``` r
-library(askgpt)
-library(askgpt)
-log_init() # run to enable error logging
-askgpt("What is an R function?")
-mean[1]
-askgpt("What is wrong with my last command?") # this is a special trigger prompt that sends your last command to GPT
-askgpt("Can you help me with the function aes() from ggplot2?")
-askgpt("Can you elaborate on that?") # the api does not really have a memory, the last prompt is sent to the API again
-```
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="man/figures/README-/unnamed-chunk-4-dark.svg">
+<img src="man/figures/README-/unnamed-chunk-4.svg" width="100%" />
+</picture>
