@@ -13,6 +13,7 @@ Imports:
     glue,
     rlang,
     httr2,
+    rappdirs,
     jsonlite
 Suggests:
     covr,

@@ -54,9 +54,10 @@ askgpt <- function(prompt,
   } else {
 
     cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
-
+    ley <- login()
     rp <- callr::r_bg(completions_api,
-                      args = list(prompt = prompt),
+                      args = list(prompt = prompt,
+                                  api_key = key),
                       package = TRUE)
 
     while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)

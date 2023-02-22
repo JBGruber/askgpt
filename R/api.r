@@ -30,7 +30,7 @@ completions_api <- function(prompt,
                             api_key = NULL,
                             ...) {
 
-  key <- api_key %||% Sys.getenv("OPENAI_API_KEY")
+  api_key <- api_key %||% login()
 
   model <- model %||% "text-davinci-003"
 
@@ -38,7 +38,7 @@ completions_api <- function(prompt,
     httr2::req_method("POST") |>
     httr2::req_headers(
       "Content-Type" = "application/json",
-      "Authorization" = glue::glue("Bearer {key}")
+      "Authorization" = glue::glue("Bearer {api_key}")
     ) |>
     httr2::req_body_json(list(
       model = model,
