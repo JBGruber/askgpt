@@ -20,7 +20,7 @@ additional functionality:
   elaborate on the last reply
 - Use the RStudio addin to comment, annotate or explain highlighted code
 
-See more under
+See more under [Usage](#usage).
 
 ## Installation
 
@@ -30,20 +30,13 @@ You can install the development version of askgpt like so:
 remotes::install_github("JBGruber/askgpt")
 ```
 
-``` r
-library(askgpt)
-#> ℹ Hi, this is askgpt ☺.
-#> • To start error logging, run ]8;;ide:run:askgpt::log_init()`log_init()`]8;; now.
-#> • To see what you can do use ]8;;ide:help:askgpt::askgpt`?askgpt()`]8;;.
-#> • Or just run ]8;;ide:run:askgpt::askgpt()`askgpt()`]8;; with any question you want!
-```
-
 ## Log In
 
-You can log into the OpenAI’s API running the dedicated `login()`
-function or just ask something with `askgpt()`:
+You can log into OpenAI’s API running the dedicated `login()` function
+or just ask something with `askgpt()`:
 
 ``` r
+library(askgpt)
 login()
 #> ℹ It looks like you have not provided an API key yet. Let me guide you through the process:
 #>   1. Go to <https://platform.openai.com/account/api-keys>
@@ -53,7 +46,23 @@ login()
 #>   4. Copy this key into R/RStudio
 ```
 
-<img src="vignettes/figs/key.png" width="100%" /><img src="vignettes/figs/key-rs.png" width="100%" />
+<div class="figure">
+
+<img src="vignettes/figs/key.png" alt="Copy the API key from OpenAI's website" width="100%" />
+<p class="caption">
+Copy the API key from OpenAI’s website
+</p>
+
+</div>
+
+<div class="figure">
+
+<img src="vignettes/figs/key-rs.png" alt="And paste it into RStudio" width="100%" />
+<p class="caption">
+And paste it into RStudio
+</p>
+
+</div>
 
 You will not need to do this again after the first time. (Technical
 detail: This will store an encrypted version of your key in the
@@ -74,8 +83,8 @@ After this, the key phrase **“What is wrong with my last command?”** (or
 just “help!”) will make `askgpt` look up your last command and error
 message and return some help for you. The other important key phrase is
 **“Can you elaborate on that?”** (or just “What?”), which will elaborate
-on the last answer you have gotten. You can ask basically any question
-you want though:
+on the previous answer. You can ask basically any question you want
+though:
 
 <figure>
 <video

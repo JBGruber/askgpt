@@ -1,8 +1,6 @@
 ---
 title: "Usage"
 output: rmarkdown::html_vignette
-params:
-  fig_path: "figs"
 vignette: >
   %\VignetteIndexEntry{Usage}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,22 +10,19 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
-rlang::check_installed("asciicast")
+if (!knitr:::child_mode()) fig_path <- "figs"
 ```
-
-```{r setup}
-library(askgpt)
-```
-
 
 ## Log In
 
-You can log into the OpenAI's API running the dedicated `login()` function or just ask something with `askgpt()`:
+You can log into OpenAI's API running the dedicated `login()` function or just ask something with `askgpt()`:
 
 
 ```{r}
+library(askgpt)
 login()
 #> ℹ It looks like you have not provided an API key yet. Let me guide you through the process:
 #>   1. Go to <https://platform.openai.com/account/api-keys>
@@ -37,8 +32,12 @@ login()
 #>   4. Copy this key into R/RStudio
 ```
 
-```{r echo=FALSE}
-knitr::include_graphics(file.path(fig_path, c("key.png", "key-rs.png")))
+```{r eval=TRUE, echo=FALSE, fig.cap="Copy the API key from OpenAI's website"}
+knitr::include_graphics(file.path(fig_path, "key.png"))
+```
+
+```{r eval=TRUE, echo=FALSE, fig.cap="And paste it into RStudio"}
+knitr::include_graphics(file.path(fig_path, "key-rs.png"))
 ```
 
 
@@ -50,15 +49,15 @@ If your old API key does not work any more, you can store a new one with: `login
 
 To enable error logging (which you need if you want askgpt to explain errors to you) first run:
 
-```{r eval=FALSE}
+```{r}
 log_init()
 ```
 
 After this, the key phrase **"What is wrong with my last command?"** (or just "help!") will make `askgpt` look up your last command and error message and return some help for you.
-The other important key phrase is **"Can you elaborate on that?"** (or just "What?"), which will elaborate on the last answer you have gotten.
+The other important key phrase is **"Can you elaborate on that?"** (or just "What?"), which will elaborate on the previous answer.
 You can ask basically any question you want though:
 
-```{r echo=FALSE, eval=FALSE}
+```{r echo=FALSE}
 library(askgpt)
 log_init()
 

@@ -27,7 +27,7 @@ It also has some additional functionality:
 - Prompt "Can you elaborate on that?" (or "what?") to ask GPT to elaborate on the last reply
 - Use the RStudio addin to comment, annotate or explain highlighted code
 
-See more under 
+See more under [Usage](#usage).
 
 ## Installation
 
