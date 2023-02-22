@@ -9,11 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%",
-  asciicast_at = "all",
-  asciicast_theme = "readme"
+  out.width = "100%"
 )
-asciicast::init_knitr_engine()
 ```
 
 # askgpt
@@ -30,6 +27,8 @@ It also has some additional functionality:
 - Prompt "Can you elaborate on that?" (or "what?") to ask GPT to elaborate on the last reply
 - Use the RStudio addin to comment, annotate or explain highlighted code
 
+See more under 
+
 ## Installation
 
 You can install the development version of askgpt like so:
@@ -38,35 +37,9 @@ You can install the development version of askgpt like so:
 remotes::install_github("JBGruber/askgpt")
 ```
 
-Then you should get a key for the openai API on [this page](https://openai.com/api/).
-Save it to your project with:
-
-```{r eval=FALSE}
-usethis::edit_r_environ(scope = "project")
+```{r echo=FALSE, results='asis'}
+fig_path = "vignettes/figs"
+res <- knitr::knit_child("vignettes/Usage.Rmd", quiet = TRUE)
+cat(res, sep = '\n')
 ```
-
-In the format:
-
-```{r eval=FALSE}
-OPENAI_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-```
-
-
-## Demo
-
-```{asciicast, cache = TRUE}
-library(askgpt)
-log_init()
-askgpt("What is an R function?")
-
-askgpt("Can you help me with the function aes() from ggplot2?")
-
-# this is a special trigger prompt that sends your last command to GPT
-mean[1]
-askgpt("What is wrong with my last command?") 
-
-# the api does not really have a memory, the last prompt is sent to the API again
-askgpt("Can you elaborate on that?") 
-```
-
 
