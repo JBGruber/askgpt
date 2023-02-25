@@ -16,7 +16,8 @@
 #' }
 askgpt <- function(prompt,
                    stream = FALSE,
-                   return_answer = FALSE) {
+                   return_answer = FALSE,
+                   ...) {
 
   traceback_trigger <- c(
     "What is wrong with my last command?",
@@ -48,7 +49,8 @@ askgpt <- function(prompt,
     cli::cli_h1("Answer")
     response <- completions_api(
       prompt = prompt,
-      stream = stream
+      stream = stream,
+      ...
     )
 
   } else {
@@ -57,7 +59,8 @@ askgpt <- function(prompt,
     ley <- login()
     rp <- callr::r_bg(completions_api,
                       args = list(prompt = prompt,
-                                  api_key = key),
+                                  api_key = key,
+                                  ...),
                       package = TRUE)
 
     while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)

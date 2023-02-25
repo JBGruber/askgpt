@@ -3,6 +3,7 @@
 export(askgpt)
 export(completions_api)
 export(document_code)
+export(list_models)
 export(log_init)
 export(login)
 export(prompt_history)

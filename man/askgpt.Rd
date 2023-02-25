@@ -4,7 +4,7 @@
 \alias{askgpt}
 \title{Ask openai's GPT models a question}
 \usage{
-askgpt(prompt, stream = FALSE, return_answer = FALSE)
+askgpt(prompt, stream = FALSE, return_answer = FALSE, ...)
 }
 \arguments{
 \item{prompt}{What you want to ask}

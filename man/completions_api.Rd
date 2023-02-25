@@ -7,9 +7,9 @@
 completions_api(
   prompt,
   model = NULL,
-  temperature = 0.2,
-  max_tokens = 2048L,
-  stream = FALSE,
+  temperature = NULL,
+  max_tokens = NULL,
+  stream = NULL,
   api_key = NULL,
   ...
 )
@@ -36,7 +36,25 @@ streamed.}
 documentation](https://platform.openai.com/docs/api-reference/completions)}
 }
 \description{
-Request answer from openai's completions API
+Mostly used under the hood for \code{\link{askgpt}}.
+}
+\details{
+Only a few parameters are implemented by name. Most can be sent
+  through the \code{...}. For example, you could use the \code{n} parameter
+  just like this \code{completions_api("The quick brown fox", n = 2)}.
+
+  A couple of defaults are used by the package:
+  \itemize{
+     \item{the model used by default is "text-davinci-003"}
+     \item{the default temperature is 0.2}
+     \item{the default for max_tokens is 2048L}
+     \item{the default for stream is FALSE}
+  }
+
+  You can configure how \code{\link{askgpt}} make requests by setting options
+  that start with \code{askgpt_*}. For example, to use a different model use
+  \code{options(askgpt_model = "text-curie-001")}. It does not matter if the
+  API parameter ist listed in the function or not. All are used.
 }
 \examples{
 \dontrun{
