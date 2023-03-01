@@ -47,7 +47,7 @@ login <- function(api_key,
 
   # cache secret
   if ((length(list.files(rappdirs::user_cache_dir("askgpt"))) == 0L | force_refresh) &
-      !no_cache) {
+      no_cache) {
 
     dir.create(rappdirs::user_cache_dir("askgpt"), showWarnings = FALSE, recursive = TRUE)
     httr2::secret_write_rds(
