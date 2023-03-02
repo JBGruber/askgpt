@@ -17,7 +17,7 @@ document_code <- function(code) {
   }
   prompt <- glue::glue("Document this R function using roxygen2 syntax:",
                        "\n{code}")
-  out <- askgpt(prompt, stream = FALSE, return_answer = TRUE)
+  out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE)
 
   if (rlang::is_installed("rstudioapi")) {
     rstudioapi::modifyRange(
@@ -42,7 +42,7 @@ annotate_code <- function(code) {
   }
   prompt <- glue::glue("Return this R code and add inline comments explaining it:",
                        "\n{code}")
-  out <- askgpt(prompt, stream = FALSE, return_answer = TRUE)
+  out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE)
 
   if (rlang::is_installed("rstudioapi")) {
     rstudioapi::modifyRange(
@@ -67,6 +67,6 @@ explain_code <- function(code) {
   }
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")
-  askgpt(prompt, stream = FALSE)
+  askgpt(prompt, chat = TRUE, stream = FALSE)
 
 }

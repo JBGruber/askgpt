@@ -28,7 +28,7 @@
 #'      \item{the default for stream is FALSE}
 #'   }
 #'
-#'   You can configure how \code{\link{askgpt}} make requests by setting options
+#'   You can configure how \code{\link{askgpt}} makes requests by setting options
 #'   that start with \code{askgpt_*}. For example, to use a different model use
 #'   \code{options(askgpt_model = "text-curie-001")}. It does not matter if the
 #'   API parameter ist listed in the function or not. All are used.
@@ -49,10 +49,7 @@ completions_api <- function(prompt,
                             api_key = NULL,
                             ...) {
 
-  options(askgpt_model = "text-davinci-003")
-
-
-  model <- model %||% getOption("askgpt_model") %||% "text-davinci-003"
+  model <- model %||% getOption("askgpt_completions_model") %||% "text-davinci-003"
   temperature <- temperature %||% getOption("askgpt_temperature") %||% 0.2
   max_tokens <- max_tokens %||% getOption("askgpt_max_tokens") %||% 2048L
   stream <- stream %||% getOption("askgpt_stream") %||% FALSE
@@ -60,11 +57,27 @@ completions_api <- function(prompt,
 
   # collect additional options
   params <- list(...)
+
+  # Todo: find more elegant way to remove these
+  params$hist <- NULL
+  params$config <- NULL
+
   askopts <- grep("^askgpt_", names(.Options), value = TRUE) |>
-    setdiff(c("askgpt_model", "askgpt_key"))
+    setdiff(c("askgpt_completions_model", "askgpt_key", "askgpt_temperature",
+              "askgpt_max_tokens", "askgpt_stream"))
   for (par in askopts) {
     params[gsub("askgpt_", "", par, fixed = TRUE)] <- getOption(par)
   }
+
+  body <- c(list(
+    model = model,
+    prompt = prompt,
+    temperature = temperature,
+    max_tokens = max_tokens,
+    stream = stream
+  ), params)
+
+  body <- Filter(Negate(is.null), body)
 
   req <- httr2::request("https://api.openai.com/v1/completions") |>
     httr2::req_method("POST") |>
@@ -72,13 +85,86 @@ completions_api <- function(prompt,
       "Content-Type" = "application/json",
       "Authorization" = glue::glue("Bearer {api_key}")
     ) |>
-    httr2::req_body_json(c(list(
-      model = model,
-      prompt = prompt,
-      temperature = temperature,
-      max_tokens = max_tokens,
-      stream = stream
-    ), params))
+    httr2::req_body_json(body)
+  if (stream) {
+    the$temp_response <- NULL
+    resp <- httr2::req_stream(req, stream_response)
+    # for conformity with regular response
+    resp <- list(choices = list(list(text = the$temp_response)))
+  } else {
+    resp <- httr2::req_perform(req) |>
+      httr2::resp_body_json()
+  }
+  resp$call <- req
+  return(resp)
+}
+
+
+#' Request answer from openai's chat API
+#'
+#'
+#' @inheritParams completions_api
+#'
+#' @return A tibble with available models
+#'
+#' @importFrom rlang `%||%`
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' completions_api("The quick brown fox")
+#' }
+chat_api <- function(prompt,
+                     model = NULL,
+                     config = NULL,
+                     max_tokens = NULL,
+                     stream = NULL,
+                     api_key = NULL,
+                     ...) {
+
+  model <- model %||% getOption("askgpt_chat_model") %||% "gpt-3.5-turbo"
+  config <- config %||% getOption("askgpt_config")
+  max_tokens <- max_tokens %||% getOption("askgpt_max_tokens") %||% 2048L
+  stream <- stream %||% getOption("askgpt_stream") %||% FALSE
+  api_key <- api_key %||% login()
+
+  # collect additional options
+  params <- list(...)
+  askopts <- grep("^askgpt_", names(.Options), value = TRUE) |>
+    setdiff(c("askgpt_chat_model", "askgpt_key", "askgpt_config",
+              "askgpt_temperature", "askgpt_max_tokens", "askgpt_stream"))
+  for (par in askopts) {
+    params[gsub("askgpt_", "", par, fixed = TRUE)] <- getOption(par)
+  }
+
+  hist <- params$hist %||% c(rbind(prompt_history(), response_history()))
+  params$hist <- NULL
+
+  messages <- dplyr::bind_rows(list(
+    if (!is.null(config)) data.frame(role = "system",
+                                     content = config),
+    if (length(hist) > 0) data.frame(role = c("user", "assistant"),
+                                     content = hist),
+    if (!is(prompt, "data.frame")) data.frame(role = "user",
+                                              content = prompt) else prompt
+  ))
+
+  body <- c(list(
+    model = model,
+    messages = messages,
+    max_tokens = max_tokens
+  ), params)
+
+  body <- Filter(Negate(is.null), body)
+
+  req <- httr2::request("https://api.openai.com/v1/chat/completions") |>
+    httr2::req_method("POST") |>
+    httr2::req_headers(
+      "Content-Type" = "application/json",
+      "Authorization" = glue::glue("Bearer {api_key}")
+    ) |>
+    httr2::req_body_json(body)
 
   if (stream) {
     the$temp_response <- NULL
@@ -89,6 +175,7 @@ completions_api <- function(prompt,
     resp <- httr2::req_perform(req) |>
       httr2::resp_body_json()
   }
+  resp$call <- req
   return(resp)
 }
 

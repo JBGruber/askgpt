@@ -19,12 +19,15 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of askgpt is to help you to learn R, using a ChatGPT-like prompt and answer system.
-It sends prompts to [openai's API](https://openai.com/api/) directly from R.
+You're new to R?
+You don't quite understand the code you copied from that tutorial?
+You get error messages that make no sense to you?
+Don't worry, just *askgpt*!
+
+`askgpt` is basically ChatGPT but from R (technically, it sends prompts to [openai's API](https://openai.com/api/) directly from R).
 It also has some additional functionality:
 
-- Prompt "What is wrong with my last command?" (or "help!") to get help on the last error R emmitted
-- Prompt "Can you elaborate on that?" (or "what?") to ask GPT to elaborate on the last reply
+- Prompt *"What is wrong with my last command?"* (or *"help!"*) to get help on the last error R emmitted
 - Use the RStudio addin to comment, annotate or explain highlighted code
 
 See more under [Usage](#usage).

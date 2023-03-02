@@ -15,6 +15,7 @@
 #' askgpt("Can you help me with the function aes() from ggplot2?")
 #' }
 askgpt <- function(prompt,
+                   chat = TRUE,
                    stream = FALSE,
                    return_answer = FALSE,
                    ...) {
@@ -42,12 +43,12 @@ askgpt <- function(prompt,
                          "\nCan you elaborate on that?")
   }
 
-  the$prompts <- c(the$prompts, prompt)
+  callfun <- ifelse(chat, chat_api, completions_api)
 
   if (stream) {
 
     cli::cli_h1("Answer")
-    response <- completions_api(
+    response <- callfun(
       prompt = prompt,
       stream = stream,
       ...
@@ -55,24 +56,33 @@ askgpt <- function(prompt,
 
   } else {
 
-    cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
+    if (interactive()) cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
     key <- login()
-    rp <- callr::r_bg(completions_api,
+
+    rp <- callr::r_bg(callfun,
                       args = list(prompt = prompt,
                                   api_key = key,
+                                  config = getOption("askgpt_config"),
+                                  hist = c(rbind(prompt_history(), response_history())),
                                   ...),
                       package = TRUE)
 
-    while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)
+    if (interactive()) while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)
 
     response <- rp$get_result()
 
   }
 
   # if several answers are requested, collapse into one
-  out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
+  if (chat) {
+    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]), collapse = "\n\n")
+  } else {
+    out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
+  }
+
+  the$prompts <- c(the$prompts, prompt)
   the$responses <- c(the$responses, out)
-  cli::cli_progress_done()
+  if (interactive()) cli::cli_progress_done()
 
   if (return_answer) {
     return(c(trimws(out)))
