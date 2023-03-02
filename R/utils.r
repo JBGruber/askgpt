@@ -13,7 +13,8 @@ the <- new.env(parent = emptyenv())
 #'
 #' @export
 log_init <- function(...) {
-  global_entrace(...)
+  if (!isTRUE(the$log_init)) global_entrace(...)
+  the$log_init <- TRUE
 }
 
 
