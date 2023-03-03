@@ -5,9 +5,9 @@ Version: 0.0.1.9000
 Authors@R: person("Johannes", "Gruber", email = "johannesb.gruber@gmail.com",
   role = c("aut", "cre"))
 Description: A chat interface build on top of the openai package (which wraps some OpenAI API endpoints).
-Depends:
+Depends: 
     R (>= 4.1.0)
-Imports:
+Imports: 
     cli,
     callr,
     glue,
@@ -15,8 +15,9 @@ Imports:
     httr2,
     rappdirs,
     jsonlite
-Suggests:
+Suggests: 
     covr,
+    httptest2,
     knitr,
     rmarkdown,
     rstudioapi,
@@ -28,3 +29,4 @@ License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
+Config/testthat/edition: 3
