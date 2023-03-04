@@ -1,10 +1,14 @@
 #' Ask openai's GPT models a question
 #'
 #' @param prompt What you want to ask
+#' @param chat whether to use the chat API (i.e., the same model as ChatGPT) or
+#'   the completions API.
 #' @param stream Return pieces of the answer to the screen instead of waiting
 #'   for the request to be completed.
 #' @param return_answer Should the answer be returned as an object instead of
 #'   printing it to the screen?
+#' @param ... additional options forwarded to \code{\link{chat_api}} or
+#'   \code{\link{completions_api}} respectively.
 #'
 #' @export
 #'

@@ -102,6 +102,7 @@ completions_api <- function(prompt,
 
 #' Request answer from openai's chat API
 #'
+#' @param config a configuration prompt to tell the model how it should behave.
 #'
 #' @inheritParams completions_api
 #'
@@ -113,7 +114,7 @@ completions_api <- function(prompt,
 #'
 #' @examples
 #' \dontrun{
-#' completions_api("The quick brown fox")
+#' chat_api("Hi, how are you?", config = "answer as a friendly chat bot")
 #' }
 chat_api <- function(prompt,
                      model = NULL,
@@ -146,7 +147,7 @@ chat_api <- function(prompt,
                                      content = config),
     if (length(hist) > 0) data.frame(role = c("user", "assistant"),
                                      content = hist),
-    if (!is(prompt, "data.frame")) data.frame(role = "user",
+    if (!methods::is(prompt, "data.frame")) data.frame(role = "user",
                                               content = prompt) else prompt
   ))
 

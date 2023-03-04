@@ -8,7 +8,6 @@ chat_api(
   prompt,
   model = NULL,
   config = NULL,
-  temperature = NULL,
   max_tokens = NULL,
   stream = NULL,
   api_key = NULL,
@@ -21,9 +20,7 @@ chat_api(
 \item{model}{character string of the model to be used (defaults to
 "text-davinci-003").}
 
-\item{temperature}{numeric value between 0 and 1 to control the randomness of
-the output (defaults to 0.2; lower values like 0.2 will make answers more
-focused and deterministic).}
+\item{config}{a configuration prompt to tell the model how it should behave.}
 
 \item{max_tokens}{The maximum number of tokens to generate in the completion.
 2048L is the maximum the models accept.}
@@ -44,6 +41,6 @@ Request answer from openai's chat API
 }
 \examples{
 \dontrun{
-completions_api("The quick brown fox")
+chat_api("Hi, how are you?", config = "answer as a friendly chat bot")
 }
 }

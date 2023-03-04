@@ -10,7 +10,9 @@ Depends:
 Imports: 
     cli,
     callr,
+    dplyr,
     glue,
+    methods,
     rlang,
     httr2,
     rappdirs,
