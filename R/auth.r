@@ -2,30 +2,31 @@
 #'
 #' @param api_key API key to use for authentication. If not provided, the
 #'   function look for a cached key or guide the user to obtain one.
-#' @param force_refresh Log in again even if a valid API key is already
-#'   cached.
+#' @param force_refresh Log in again even if an API key is already cached.
+#' @param cache_dir dir location to save keys on disk. The default is to use
+#'   \code{rappdirs::user_cache_dir("askgpt")}.
 #' @param no_cache Don't cache the API key, only load it into the environment.
 #'
 #' @export
 login <- function(api_key,
                   force_refresh = FALSE,
+                  cache_dir = NULL,
                   no_cache = FALSE) {
+
+  if (is.null(cache_dir)) cache_dir <- rappdirs::user_cache_dir("askgpt")
+
   # try get key from env
-  if (missing(api_key)) {
-    api_key <- Sys.getenv("OPENAI_API_KEY")
-    # don't automatically save env tokens
-    no_cache <- TRUE - no_cache
-  }
+  if (missing(api_key)) api_key <- Sys.getenv("OPENAI_API_KEY")
 
   # try to load cached key
   if (api_key == "") {
-    cache <- list.files(rappdirs::user_cache_dir("askgpt"),
+    cache <- list.files(cache_dir,
                         full.names = TRUE)
     if (length(cache) > 0L) api_key <- httr2::secret_read_rds(cache, I(rlang::hash(Sys.info()[["user"]])))
   }
 
   # prompt user to retrieve key
-  if (api_key == "" | force_refresh) {
+  if ((api_key == "" | force_refresh) & interactive()) {
 
     utils::browseURL("https://platform.openai.com/account/api-keys")
 
@@ -37,7 +38,7 @@ login <- function(api_key,
       "On the site, click the button {.button + Create new secret key} to create an API key",
       "Copy this key into R/RStudio"
     ))
-    if (rlang::is_installed("rstudioapi")) {
+    if (rstudio_available) {
       api_key <- rstudioapi::askForSecret("api_key", message = "Enter OpenAI secret API key: ")
     } else {
       api_key <- readline(prompt = "Enter OpenAI secret API key: ")
@@ -45,14 +46,15 @@ login <- function(api_key,
 
   }
 
-  # cache secret
-  if ((length(list.files(rappdirs::user_cache_dir("askgpt"))) == 0L | force_refresh) &
-      no_cache) {
+  if (api_key == "") cli::cli_abort("No API key available")
 
-    dir.create(rappdirs::user_cache_dir("askgpt"), showWarnings = FALSE, recursive = TRUE)
+  # cache secret
+  if ((length(list.files(cache_dir, full.names = TRUE)) == 0L | force_refresh) & !no_cache) {
+
+    dir.create(cache_dir, showWarnings = FALSE, recursive = TRUE)
     httr2::secret_write_rds(
       api_key,
-      path = file.path(rappdirs::user_cache_dir("askgpt"),
+      path = file.path(cache_dir,
                        "api_key.rds.enc"),
       key = I(rlang::hash(Sys.info()[["user"]]))
     )
