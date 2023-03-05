@@ -48,6 +48,11 @@ jobs:
             coverage
             check
 
+      - name: Create and populate .Renviron file
+        run: |
+          echo OPENAI_API_KEY="$OPENAI_API_KEY" >> ~/.Renviron
+          shell: bash
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true

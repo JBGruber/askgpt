@@ -24,7 +24,8 @@ Suggests:
     rmarkdown,
     rstudioapi,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 URL: https://github.com/JBGruber/askgpt
 BugReports: https://github.com/JBGruber/askgpt/issues
 License: GPL (>= 3)

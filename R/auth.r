@@ -38,7 +38,7 @@ login <- function(api_key,
       "On the site, click the button {.button + Create new secret key} to create an API key",
       "Copy this key into R/RStudio"
     ))
-    if (rstudio_available) {
+    if (rstudio_available()) {
       api_key <- rstudioapi::askForSecret("api_key", message = "Enter OpenAI secret API key: ")
     } else {
       api_key <- readline(prompt = "Enter OpenAI secret API key: ")
