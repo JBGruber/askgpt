@@ -2,6 +2,7 @@
 #'
 #' @param code A character vector of R code. If missing the code currently
 #'   selected in RStudio is documented (If RStudio is used).
+#' @param ... passed on to \code{\link{askgpt}}.
 #'
 #' @export
 #'

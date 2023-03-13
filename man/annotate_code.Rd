@@ -9,6 +9,8 @@ annotate_code(code, ...)
 \arguments{
 \item{code}{A character vector of R code. If missing the code currently
 selected in RStudio is documented (If RStudio is used).}
+
+\item{...}{passed on to \code{\link{askgpt}}.}
 }
 \description{
 Annotate R code with inline comments
