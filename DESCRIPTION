@@ -19,7 +19,6 @@ Imports:
     jsonlite
 Suggests: 
     covr,
-    httptest2,
     knitr,
     rmarkdown,
     rstudioapi,

@@ -1,6 +1,11 @@
-with_mock_dir("questions", {
-  test_that("Ask questions", {
-    expect_length(completions_api("is this a test?"), 7L)
-    expect_length(chat_api("is this a test?"), 7L)
-  })
+test_that("Ask questions", {
+  expect_length(httr2::with_mock(cache_response, completions_api("is this a test?")), 7L)
+  expect_length(httr2::with_mock(cache_response, chat_api("is this a test?")), 7L)
+  expect_length(httr2::with_mock(cache_response, askgpt("is this a test?", stream = TRUE)), 2L)
 })
+
+
+
+
+
+
