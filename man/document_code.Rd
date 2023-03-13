@@ -4,11 +4,13 @@
 \alias{document_code}
 \title{Document R Code}
 \usage{
-document_code(code)
+document_code(code, ...)
 }
 \arguments{
 \item{code}{A character vector of R code. If missing the code currently
 selected in RStudio is documented (If RStudio is used).}
+
+\item{...}{passed on to \code{\link{askgpt}}.}
 }
 \description{
 Document R Code

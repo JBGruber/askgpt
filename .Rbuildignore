@@ -3,3 +3,5 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 README_cache
+^\.github$
+^codecov\.yml$

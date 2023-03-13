@@ -4,14 +4,16 @@
 \alias{login}
 \title{Log in to OpenAI}
 \usage{
-login(api_key, force_refresh = FALSE, no_cache = FALSE)
+login(api_key, force_refresh = FALSE, cache_dir = NULL, no_cache = FALSE)
 }
 \arguments{
 \item{api_key}{API key to use for authentication. If not provided, the
 function look for a cached key or guide the user to obtain one.}
 
-\item{force_refresh}{Log in again even if a valid API key is already
-cached.}
+\item{force_refresh}{Log in again even if an API key is already cached.}
+
+\item{cache_dir}{dir location to save keys on disk. The default is to use
+\code{rappdirs::user_cache_dir("askgpt")}.}
 
 \item{no_cache}{Don't cache the API key, only load it into the environment.}
 }

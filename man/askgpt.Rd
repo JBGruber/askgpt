@@ -4,16 +4,32 @@
 \alias{askgpt}
 \title{Ask openai's GPT models a question}
 \usage{
-askgpt(prompt, chat = TRUE, stream = FALSE, return_answer = FALSE, ...)
+askgpt(
+  prompt,
+  chat = TRUE,
+  stream = FALSE,
+  progress = TRUE,
+  return_answer = FALSE,
+  ...
+)
 }
 \arguments{
 \item{prompt}{What you want to ask}
 
+\item{chat}{whether to use the chat API (i.e., the same model as ChatGPT) or
+the completions API.}
+
 \item{stream}{Return pieces of the answer to the screen instead of waiting
 for the request to be completed.}
 
+\item{progress}{Show a progress spinner while the request to the API has not
+been fullfilled.}
+
 \item{return_answer}{Should the answer be returned as an object instead of
 printing it to the screen?}
+
+\item{...}{additional options forwarded to \code{\link{chat_api}} or
+\code{\link{completions_api}} respectively.}
 }
 \description{
 Ask openai's GPT models a question

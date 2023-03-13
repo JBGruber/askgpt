@@ -32,3 +32,10 @@ prompt_history <- function(n = Inf) {
 response_history <- function(n = Inf) {
   return(utils::tail(the$responses, n))
 }
+
+# safely check if rstudioapi is available
+rstudio_available <- function() {
+  out <- FALSE
+  if (rlang::is_installed("rstudioapi")) out <- rstudioapi::isAvailable()
+  return(out)
+}

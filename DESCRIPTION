@@ -5,26 +5,30 @@ Version: 0.0.1.9000
 Authors@R: person("Johannes", "Gruber", email = "johannesb.gruber@gmail.com",
   role = c("aut", "cre"))
 Description: A chat interface build on top of the openai package (which wraps some OpenAI API endpoints).
-Depends:
+Depends: 
     R (>= 4.1.0)
-Imports:
+Imports: 
     cli,
     callr,
+    dplyr,
     glue,
+    methods,
     rlang,
     httr2,
     rappdirs,
     jsonlite
-Suggests:
+Suggests: 
     covr,
     knitr,
     rmarkdown,
     rstudioapi,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 URL: https://github.com/JBGruber/askgpt
 BugReports: https://github.com/JBGruber/askgpt/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
+Config/testthat/edition: 3
