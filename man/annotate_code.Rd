@@ -4,7 +4,7 @@
 \alias{annotate_code}
 \title{Annotate R code with inline comments}
 \usage{
-annotate_code(code)
+annotate_code(code, ...)
 }
 \arguments{
 \item{code}{A character vector of R code. If missing the code currently

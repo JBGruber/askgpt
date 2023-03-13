@@ -5,6 +5,8 @@
 #'   the completions API.
 #' @param stream Return pieces of the answer to the screen instead of waiting
 #'   for the request to be completed.
+#' @param progress Show a progress spinner while the request to the API has not
+#'   been fullfilled.
 #' @param return_answer Should the answer be returned as an object instead of
 #'   printing it to the screen?
 #' @param ... additional options forwarded to \code{\link{chat_api}} or
@@ -21,6 +23,7 @@
 askgpt <- function(prompt,
                    chat = TRUE,
                    stream = FALSE,
+                   progress = TRUE,
                    return_answer = FALSE,
                    ...) {
 
@@ -58,7 +61,7 @@ askgpt <- function(prompt,
       ...
     )
 
-  } else {
+  } else if (progress) {
 
     if (interactive()) cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
     key <- login()
@@ -75,6 +78,11 @@ askgpt <- function(prompt,
 
     response <- rp$get_result()
 
+  } else {
+    response <- callfun(
+      prompt = prompt,
+      ...
+    )
   }
 
   # if several answers are requested, collapse into one

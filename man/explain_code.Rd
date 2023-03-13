@@ -4,7 +4,7 @@
 \alias{explain_code}
 \title{Explain R code}
 \usage{
-explain_code(code)
+explain_code(code, ...)
 }
 \arguments{
 \item{code}{A character vector of R code. If missing the code currently

@@ -4,7 +4,14 @@
 \alias{askgpt}
 \title{Ask openai's GPT models a question}
 \usage{
-askgpt(prompt, chat = TRUE, stream = FALSE, return_answer = FALSE, ...)
+askgpt(
+  prompt,
+  chat = TRUE,
+  stream = FALSE,
+  progress = TRUE,
+  return_answer = FALSE,
+  ...
+)
 }
 \arguments{
 \item{prompt}{What you want to ask}
@@ -14,6 +21,9 @@ the completions API.}
 
 \item{stream}{Return pieces of the answer to the screen instead of waiting
 for the request to be completed.}
+
+\item{progress}{Show a progress spinner while the request to the API has not
+been fullfilled.}
 
 \item{return_answer}{Should the answer be returned as an object instead of
 printing it to the screen?}
