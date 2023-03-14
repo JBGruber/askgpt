@@ -17,16 +17,22 @@ that tutorial? You get error messages that make no sense to you? Don’t
 worry, just *askgpt*!
 
 `askgpt` is basically ChatGPT but from R (technically, it sends prompts
-to [openai’s API](https://openai.com/api/) directly from R). It also has
+to [OpenAI’s API](https://openai.com/api/) directly from R). It also has
 some additional functionality:
 
 - Prompt *“What is wrong with my last command?”* (or *“help!”*) to get
-  help on the last error R emmitted
+  help on the last error R emitted
 - Use the RStudio addin to comment, annotate or explain highlighted code
 
 See more under [Usage](#usage).
 
 ## Installation
+
+You can install release version of askgpt like so:
+
+``` r
+install.packages("askgpt")
+```
 
 You can install the development version of askgpt like so:
 

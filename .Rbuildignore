@@ -8,3 +8,5 @@ README_cache
 ^codecov\.yml$
 ^doc$
 ^Meta$
+^cran-comments\.md$
+^CRAN-SUBMISSION$

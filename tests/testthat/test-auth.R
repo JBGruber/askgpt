@@ -1,8 +1,10 @@
 test_that("retrieve key", {
+  skip_on_cran()
   expect_no_match(login(no_cache = TRUE), "^$")
 })
 
 test_that("key cache", {
+  skip_on_cran()
   temp_cache <- tempdir()
   expect_length(
     {
