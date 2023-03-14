@@ -110,4 +110,3 @@ askgpt("What is an R function?")
 #> Functions in R are used to make code easier to use, understand, and reuse. They
 #> can also help programmers write complex and efficient programs.
 ```
-

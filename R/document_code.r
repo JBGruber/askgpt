@@ -16,9 +16,9 @@ document_code <- function(code, ...) {
     if (rstudio_available()) {
       context <- rstudioapi::getActiveDocumentContext()
       code <- context$selection[[1L]]$text
-    } else (
+    } else {
       cli::cli_abort("{.code code} is missing with no default")
-    )
+    }
   }
   prompt <- glue::glue("Document this R function using roxygen2 syntax:",
                        "\n{code}")
@@ -48,9 +48,9 @@ annotate_code <- function(code, ...) {
     if (rstudio_available()) {
       context <- rstudioapi::getActiveDocumentContext()
       code <- context$selection[[1L]]$text
-    } else (
+    } else {
       cli::cli_abort("{.code code} is missing with no default")
-    )
+    }
   }
 
   prompt <- glue::glue("Return this R code and add inline comments explaining it:",
@@ -81,9 +81,9 @@ explain_code <- function(code, ...) {
       rlang::check_installed("rstudioapi")
       context <- rstudioapi::getActiveDocumentContext()
       code <- context$selection[[1L]]$text
-    } else (
+    } else {
       cli::cli_abort("{.code code} is missing with no default")
-    )
+    }
   }
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")

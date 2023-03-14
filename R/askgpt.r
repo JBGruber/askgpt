@@ -74,7 +74,10 @@ askgpt <- function(prompt,
                                   ...),
                       package = TRUE)
 
-    if (interactive()) while (rp$is_alive()) cli::cli_progress_update(); Sys.sleep(2/100)
+    if (interactive()) while (rp$is_alive()) {
+      cli::cli_progress_update()
+      Sys.sleep(2 / 100)
+    }
 
     response <- rp$get_result()
 
@@ -87,7 +90,8 @@ askgpt <- function(prompt,
 
   # if several answers are requested, collapse into one
   if (chat) {
-    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]), collapse = "\n\n")
+    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]),
+                 collapse = "\n\n")
   } else {
     out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
   }
