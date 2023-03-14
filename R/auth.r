@@ -58,6 +58,7 @@ key_menu <- function() {
 
 
 load_key <- function(cache_dir) {
+  api_key <- ""
   cache <- list.files(cache_dir,
                       full.names = TRUE)
   if (length(cache) > 0L) api_key <- httr2::secret_read_rds(cache, I(rlang::hash(Sys.info()[["user"]])))

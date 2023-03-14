@@ -6,7 +6,7 @@
 #' @param stream Return pieces of the answer to the screen instead of waiting
 #'   for the request to be completed.
 #' @param progress Show a progress spinner while the request to the API has not
-#'   been fullfilled.
+#'   been fulfilled.
 #' @param return_answer Should the answer be returned as an object instead of
 #'   printing it to the screen?
 #' @param ... additional options forwarded to \code{\link{chat_api}} or

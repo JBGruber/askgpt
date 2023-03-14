@@ -51,10 +51,11 @@ Only a few parameters are implemented by name. Most can be sent
      \item{the default for stream is FALSE}
   }
 
-  You can configure how \code{\link{askgpt}} makes requests by setting options
-  that start with \code{askgpt_*}. For example, to use a different model use
-  \code{options(askgpt_model = "text-curie-001")}. It does not matter if the
-  API parameter ist listed in the function or not. All are used.
+  You can configure how \code{\link{askgpt}} makes requests by setting
+  options that start with \code{askgpt_*}. For example, to use a different
+  model use \code{options(askgpt_model = "text-curie-001")}. It does not
+  matter if the API parameter ist listed in the function or not. All are
+  used.
 }
 \examples{
 \dontrun{

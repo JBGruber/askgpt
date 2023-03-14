@@ -1,6 +1,5 @@
 test_that("retrieve key", {
   expect_no_match(login(no_cache = TRUE), "^$")
-
 })
 
 test_that("key cache", {

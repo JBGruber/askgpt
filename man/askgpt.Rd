@@ -23,7 +23,7 @@ the completions API.}
 for the request to be completed.}
 
 \item{progress}{Show a progress spinner while the request to the API has not
-been fullfilled.}
+been fulfilled.}
 
 \item{return_answer}{Should the answer be returned as an object instead of
 printing it to the screen?}

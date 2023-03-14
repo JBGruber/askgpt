@@ -4,4 +4,7 @@
 ^LICENSE\.md$
 README_cache
 ^\.github$
+^\.lintr$
 ^codecov\.yml$
+^doc$
+^Meta$

@@ -6,3 +6,5 @@
 README_cache
 askgpt.Rproj
 inst/doc
+/doc/
+/Meta/
