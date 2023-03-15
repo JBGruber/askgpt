@@ -12,3 +12,8 @@ Name: Explain Code
 Description: Use GPT explain selected code.
 Binding: explain_code
 Interactive: true
+
+Name: Tutorialise Code
+Description: Use GPT to turn code into a tutorial.
+Binding: tutorialise_addin
+Interactive: true

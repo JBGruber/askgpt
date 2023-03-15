@@ -89,3 +89,4 @@ explain_code <- function(code, ...) {
                        "\n{code}")
   askgpt(prompt, chat = TRUE, stream = FALSE, ...)
 }
+
