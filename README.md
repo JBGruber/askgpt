@@ -10,6 +10,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/JBGruber/askgpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JBGruber/askgpt?branch=main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/askgpt)](https://CRAN.R-project.org/package=askgpt)
 <!-- badges: end -->
 
 You’re new to R? You don’t quite understand the code you copied from

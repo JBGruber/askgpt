@@ -1,6 +1,6 @@
 ## Resubmission
 
-Thank you for the notification that the package did not pass one of the automated tests for incoming packages. I have resolved the issue now.
+Thank you for the comments on my prior submission. I fixed the issues with the documentation. I also extended the package in the meantime, I hope it is okay to still call it a resubmission.
 
 ## Test environments
 
