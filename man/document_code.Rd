@@ -12,6 +12,9 @@ selected in RStudio is documented (If RStudio is used).}
 
 \item{...}{passed on to \code{\link{askgpt}}.}
 }
+\value{
+A character vector.
+}
 \description{
 Document R Code
 }

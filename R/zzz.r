@@ -2,6 +2,7 @@
   greet_startup()
 }
 
+#' @keywords internal
 greet_startup <- function() {
   msg <- paste0(
     c(

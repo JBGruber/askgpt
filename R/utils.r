@@ -29,6 +29,7 @@ prompt_history <- function(n = Inf) {
 
 
 #' @inherit prompt_history
+#' @export
 response_history <- function(n = Inf) {
   return(utils::tail(the$responses, n))
 }
@@ -48,4 +49,5 @@ get_selection <- function(variables) {
   } else {
     cli::cli_abort("{.code code} is missing with no default")
   }
+  return(code)
 }

@@ -72,3 +72,15 @@ explain_code <- function(code, ...) {
   askgpt(prompt, chat = TRUE, stream = FALSE, ...)
 }
 
+#' Test R code
+#'
+#' @inheritParams document_code
+#' @return A character vector.
+#' @export
+test_function <- function(code, ...) {
+  if (missing(code)) code <- get_selection()
+  prompt <- glue::glue("Write a testthat unit test for this R function:",
+                       "\n{code}")
+  askgpt(prompt, chat = TRUE, stream = FALSE, ...)
+}
+
