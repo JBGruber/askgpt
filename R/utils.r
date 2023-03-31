@@ -39,3 +39,13 @@ rstudio_available <- function() {
   if (rlang::is_installed("rstudioapi")) out <- rstudioapi::isAvailable()
   return(out)
 }
+
+# get selected text from RStudio
+get_selection <- function(variables) {
+  if (rstudio_available()) {
+    context <- rstudioapi::getActiveDocumentContext()
+    code <- context$selection[[1L]]$text
+  } else {
+    cli::cli_abort("{.code code} is missing with no default")
+  }
+}

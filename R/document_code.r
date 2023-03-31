@@ -4,6 +4,7 @@
 #'   selected in RStudio is documented (If RStudio is used).
 #' @param ... passed on to \code{\link{askgpt}}.
 #'
+#' @return A character vector.
 #' @export
 #'
 #' @examples
@@ -12,14 +13,8 @@
 #' }
 document_code <- function(code, ...) {
   context <- NULL
-  if (missing(code)) {
-    if (rstudio_available()) {
-      context <- rstudioapi::getActiveDocumentContext()
-      code <- context$selection[[1L]]$text
-    } else {
-      cli::cli_abort("{.code code} is missing with no default")
-    }
-  }
+  if (missing(code)) code <- get_selection()
+
   prompt <- glue::glue("Document this R function using roxygen2 syntax:",
                        "\n{code}")
   out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE, ...)
@@ -41,19 +36,13 @@ document_code <- function(code, ...) {
 #' Annotate R code with inline comments
 #'
 #' @inheritParams document_code
+#' @return A character vector.
 #' @export
 annotate_code <- function(code, ...) {
   context <- NULL
-  if (missing(code)) {
-    if (rstudio_available()) {
-      context <- rstudioapi::getActiveDocumentContext()
-      code <- context$selection[[1L]]$text
-    } else {
-      cli::cli_abort("{.code code} is missing with no default")
-    }
-  }
+  if (missing(code)) code <- get_selection()
 
-  prompt <- glue::glue("Return this R code and add inline comments explaining it:",
+  prompt <- glue::glue("Add inline comments to this R code:",
                        "\n{code}")
   out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE, ...)
 
@@ -74,17 +63,10 @@ annotate_code <- function(code, ...) {
 #' Explain R code
 #'
 #' @inheritParams document_code
+#' @return A character vector.
 #' @export
 explain_code <- function(code, ...) {
-  if (missing(code)) {
-    if (rstudio_available()) {
-      rlang::check_installed("rstudioapi")
-      context <- rstudioapi::getActiveDocumentContext()
-      code <- context$selection[[1L]]$text
-    } else {
-      cli::cli_abort("{.code code} is missing with no default")
-    }
-  }
+  if (missing(code)) code <- get_selection()
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")
   askgpt(prompt, chat = TRUE, stream = FALSE, ...)

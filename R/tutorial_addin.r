@@ -43,7 +43,8 @@ tutorialise_addin <- function() {
       shiny::textAreaInput(
         "prompt",
         "Prompt Preview",
-        width = "100%"
+        width = "100%",
+        height = "400px"
       ),
     )
   )
@@ -103,5 +104,7 @@ ask_var <- function(var,
 
 rstudio_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
-  context$selection[[1L]]$text
+  out <- context$selection[[1L]]$text
+  if (out == "") out <- context$contents
+  return(out)
 }
