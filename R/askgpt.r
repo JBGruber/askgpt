@@ -104,7 +104,7 @@ askgpt <- function(prompt,
     return(c(trimws(out)))
   } else if (!stream) {
     cli::cli_h1("Answer")
-    cli::cli_inform(c(trimws(out)))
+    cli::cli_verbatim(trimws(out))
   }
   invisible(response)
 }
