@@ -88,20 +88,6 @@ prompt_template <- function(code, target, goal) {
              "\n{code}")
 }
 
-ask_var <- function(var,
-                    title = NULL,
-                    message = NULL,
-                    default = NULL) {
-  if (missing(var)) {
-    if (rstudio_available()) {
-      var <- rstudioapi::showPrompt(title, message, default)
-    } else {
-      cli::cli_abort("{.code code} is missing with no default")
-    }
-  }
-  return(var)
-}
-
 rstudio_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   out <- context$selection[[1L]]$text

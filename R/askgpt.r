@@ -39,17 +39,6 @@ askgpt <- function(prompt,
                          "\n{rlang::expr_deparse(rrr[['message']])}")
   }
 
-  traceback_trigger <- c(
-    "Can you elaborate on that?",
-    "What?"
-  )
-
-  if (prompt %in% traceback_trigger) {
-    prompt <- glue::glue("{prompt_history(1L)}",
-                         "\n{response_history(1L)}",
-                         "\nCan you elaborate on that?")
-  }
-
   callfun <- ifelse(chat, chat_api, completions_api)
 
   if (stream) {
