@@ -36,7 +36,7 @@ streamed.}
 documentation](https://platform.openai.com/docs/api-reference/completions)}
 }
 \value{
-a httr2 repsonse object
+a httr2 response object
 }
 \description{
 Mostly used under the hood for \code{\link{askgpt}}.

@@ -36,7 +36,7 @@ documentation](https://platform.openai.com/docs/api-reference/completions)}
 \value{
 A tibble with available models
 
-a httr2 repsonse object
+a httr2 response object
 }
 \description{
 Request answer from openai's chat API

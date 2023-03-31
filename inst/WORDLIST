@@ -17,6 +17,7 @@ dir
 entrace
 env
 github
+httr
 io
 ist
 openai
