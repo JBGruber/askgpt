@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/JBGruber/askgpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JBGruber/askgpt?branch=main)
