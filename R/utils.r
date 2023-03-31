@@ -56,11 +56,13 @@ get_selection <- function(variables) {
 }
 
 # log prompts and responses
-log_ <- function(prompt, response, loc = getOption("askgpt_log_location")) {
+log_ <- function(prompt, response, loc = Sys.getenv("askgpt_log_location")) {
   the$prompts <- c(the$prompts, prompt)
   the$responses <- c(the$responses, response)
   if (!is.null(loc)) {
-    l <- jsonlite::toJSON(list(prompt = prompt, response = response))
-    write(l, file = loc, append = TRUE)
+    con <- file(loc, "ab")
+    jsonlite::stream_out(data.frame(prompt = prompt, response = response),
+                         con, verbose = FALSE)
+    close(con)
   }
 }
