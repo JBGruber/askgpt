@@ -9,6 +9,9 @@ log_init(...)
 \arguments{
 \item{...}{forwarded to \code{\link[rlang]{global_entrace}}}
 }
+\value{
+No return value, called to enable rlang error logging
+}
 \description{
 Initiate error logging
 }

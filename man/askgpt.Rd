@@ -31,6 +31,10 @@ printing it to the screen?}
 \item{...}{additional options forwarded to \code{\link{chat_api}} or
 \code{\link{completions_api}} respectively.}
 }
+\value{
+either an httr2 response from one of the APIs or a character vector
+  (if return_answer).
+}
 \description{
 Ask openai's GPT models a question
 }

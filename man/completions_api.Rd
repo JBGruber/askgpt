@@ -35,6 +35,9 @@ streamed.}
 \item{...}{additional parameters to be passed to the API (see [the API
 documentation](https://platform.openai.com/docs/api-reference/completions)}
 }
+\value{
+a httr2 repsonse object
+}
 \description{
 Mostly used under the hood for \code{\link{askgpt}}.
 }

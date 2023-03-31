@@ -36,6 +36,7 @@
 #'
 #' @importFrom rlang `%||%`
 #'
+#' @return a httr2 repsonse object
 #' @export
 #'
 #' @examples
@@ -111,6 +112,7 @@ completions_api <- function(prompt,
 #'
 #' @importFrom rlang `%||%`
 #'
+#' @return a httr2 repsonse object
 #' @export
 #'
 #' @examples

@@ -6,6 +6,9 @@
 \usage{
 tutorialise_addin()
 }
+\value{
+No return value, opens a new file in RStudio
+}
 \description{
 `tutorialise_addin()` opens an [RStudio
   gadget](https://shiny.rstudio.com/articles/gadgets.html) and

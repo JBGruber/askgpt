@@ -7,6 +7,7 @@
 #'   \code{rappdirs::user_cache_dir("askgpt")}.
 #' @param no_cache Don't cache the API key, only load it into the environment.
 #'
+#' @return a character vector with an API key
 #' @export
 login <- function(api_key,
                   force_refresh = FALSE,

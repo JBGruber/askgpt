@@ -5,6 +5,7 @@
 #'   [addin](http://rstudio.github.io/rstudioaddins/) that turns selected code
 #'   into an R Markdown/Quarto Tutorial.
 #'
+#' @return No return value, opens a new file in RStudio
 tutorialise_addin <- function() {
 
   rlang::check_installed(

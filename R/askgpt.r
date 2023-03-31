@@ -12,6 +12,8 @@
 #' @param ... additional options forwarded to \code{\link{chat_api}} or
 #'   \code{\link{completions_api}} respectively.
 #'
+#' @return either an httr2 response from one of the APIs or a character vector
+#'   (if return_answer).
 #' @export
 #'
 #' @examples
@@ -85,8 +87,7 @@ askgpt <- function(prompt,
     out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
   }
 
-  the$prompts <- c(the$prompts, prompt)
-  the$responses <- c(the$responses, out)
+  log_(prompt, out)
   if (interactive()) cli::cli_progress_done()
 
   if (return_answer) {

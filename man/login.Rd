@@ -17,6 +17,9 @@ function look for a cached key or guide the user to obtain one.}
 
 \item{no_cache}{Don't cache the API key, only load it into the environment.}
 }
+\value{
+a character vector with an API key
+}
 \description{
 Log in to OpenAI
 }

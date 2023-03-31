@@ -11,6 +11,7 @@ the <- new.env(parent = emptyenv())
 #' @details Just an alias for rlang::global_entrace() with a more fitting name (for the
 #' purpose here).
 #'
+#' @return No return value, called to enable rlang error logging
 #' @export
 log_init <- function(...) {
   if (!isTRUE(the$log_init)) global_entrace(...)
@@ -22,6 +23,7 @@ log_init <- function(...) {
 #'
 #' @param n number of prompts/responses to return.
 #'
+#' @return a character vector
 #' @export
 prompt_history <- function(n = Inf) {
   return(utils::tail(the$prompts, n))
@@ -29,6 +31,7 @@ prompt_history <- function(n = Inf) {
 
 
 #' @inherit prompt_history
+#' @return a character vector
 #' @export
 response_history <- function(n = Inf) {
   return(utils::tail(the$responses, n))
@@ -50,4 +53,14 @@ get_selection <- function(variables) {
     cli::cli_abort("{.code code} is missing with no default")
   }
   return(code)
+}
+
+# log prompts and responses
+log_ <- function(prompt, response, loc = getOption("askgpt_log_location")) {
+  the$prompts <- c(the$prompts, prompt)
+  the$responses <- c(the$responses, response)
+  if (!is.null(loc)) {
+    l <- jsonlite::toJSON(list(prompt = prompt, response = response))
+    write(l, file = loc, append = TRUE)
+  }
 }

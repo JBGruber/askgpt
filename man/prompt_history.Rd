@@ -9,6 +9,9 @@ prompt_history(n = Inf)
 \arguments{
 \item{n}{number of prompts/responses to return.}
 }
+\value{
+a character vector
+}
 \description{
 Return the prompt/response history
 }
