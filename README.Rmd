@@ -16,10 +16,11 @@ knitr::opts_chunk$set(
 # askgpt
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/JBGruber/askgpt/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/JBGruber/askgpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/JBGruber/askgpt?branch=main)
 [![CRAN status](https://www.r-pkg.org/badges/version/askgpt)](https://CRAN.R-project.org/package=askgpt)
+[![CRAN_Download_Badge](https://cranlogs.r-pkg.org/badges/grand-total/askgpt)](https://cran.r-project.org/package=askgpt)
 <!-- badges: end -->
 
 You're new to R?

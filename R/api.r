@@ -151,7 +151,7 @@ chat_api <- function(prompt,
     if (length(hist) > 0) data.frame(role = c("user", "assistant"),
                                      content = hist),
     if (!methods::is(prompt, "data.frame")) data.frame(role = "user",
-                                              content = prompt) else prompt
+                                                       content = prompt) else prompt
   ))
 
   body <- c(list(
@@ -168,7 +168,8 @@ chat_api <- function(prompt,
       "Content-Type" = "application/json",
       "Authorization" = glue::glue("Bearer {api_key}")
     ) |>
-    httr2::req_body_json(body)
+    httr2::req_body_json(body) |>
+    httr2::req_error(body = error_body)
 
   if (stream) {
     the$temp_response <- NULL
@@ -200,6 +201,10 @@ stream_response <- function(x) {
     cli::cli_inform(c(trimws(response)))
 
   }
+}
+
+error_body <- function(resp) {
+  httr2::resp_body_json(resp)$error$message
 }
 
 
