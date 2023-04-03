@@ -4,6 +4,7 @@
 # package environment
 the <- new.env(parent = emptyenv())
 
+
 #' Initiate error logging
 #'
 #' @param ... forwarded to \code{\link[rlang]{global_entrace}}
@@ -48,12 +49,23 @@ new_conversation <- function() {
   the$prompts <- NULL
 }
 
+
+# internal function to format answers
+screen_answer <- function(x) {
+  pars <- unlist(strsplit(x, "\n", fixed = TRUE))
+  cli::cli_h1("Answer")
+  # "{i}" insetead of i stops glue from evaluating code inside the answer
+  for (i in pars) cli::cli_text("{i}")
+}
+
+
 # safely check if rstudioapi is available
 rstudio_available <- function() {
   out <- FALSE
   if (rlang::is_installed("rstudioapi")) out <- rstudioapi::isAvailable()
   return(out)
 }
+
 
 # get selected text from RStudio
 get_selection <- function(variables) {
@@ -65,6 +77,7 @@ get_selection <- function(variables) {
   }
   return(code)
 }
+
 
 # log prompts and responses
 log_ <- function(prompt, response, loc = Sys.getenv("askgpt_log_location")) {

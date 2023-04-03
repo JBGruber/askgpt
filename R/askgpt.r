@@ -91,12 +91,9 @@ askgpt <- function(prompt,
   if (interactive()) cli::cli_progress_done()
 
   if (return_answer) {
-    return(c(trimws(out)))
+    return(out)
   } else if (!stream) {
-    cli::cli_h1("Answer")
-    # wrapping the trimws bit in glue syntax stops it from evaluating code
-    # inside `out` but keeps line wrapping
-    cli::cli_text("{trimws(out)}")
+    screen_answer(out)
   }
   invisible(response)
 }
