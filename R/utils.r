@@ -37,6 +37,17 @@ response_history <- function(n = Inf) {
   return(utils::tail(the$responses, n))
 }
 
+#' Start a new conversation
+#'
+#' Deletes the local prompt and response history to start a new conversation.
+#'
+#' @return Does not return a value
+#' @export
+new_conversation <- function() {
+  the$responses <- NULL
+  the$prompts <- NULL
+}
+
 # safely check if rstudioapi is available
 rstudio_available <- function() {
   out <- FALSE
@@ -59,7 +70,7 @@ get_selection <- function(variables) {
 log_ <- function(prompt, response, loc = Sys.getenv("askgpt_log_location")) {
   the$prompts <- c(the$prompts, prompt)
   the$responses <- c(the$responses, response)
-  if (!is.null(loc)) {
+  if (loc != "") {
     con <- file(loc, "ab")
     jsonlite::stream_out(data.frame(prompt = prompt, response = response),
                          con, verbose = FALSE)
