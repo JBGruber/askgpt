@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# askgpt
+# askgpt <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
