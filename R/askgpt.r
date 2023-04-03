@@ -94,7 +94,9 @@ askgpt <- function(prompt,
     return(c(trimws(out)))
   } else if (!stream) {
     cli::cli_h1("Answer")
-    cli::cli_verbatim(trimws(out))
+    # wrapping the trimws bit in glue syntax stops it from evaluating code
+    # inside `out` but keeps line wrapping
+    cli::cli_text("{trimws(out)}")
   }
   invisible(response)
 }
