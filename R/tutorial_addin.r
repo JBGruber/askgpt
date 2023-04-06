@@ -41,10 +41,9 @@ tutorialise_addin <- function() {
 
   server <- function(input, output, session) {
 
-
     # does not really render text but needed to show spinner
     prcs <- shiny::eventReactive(input$done, "GPT is thinking")
-    output$spinner <- renderText({
+    output$spinner <- shiny::renderText({
       prcs()
       shiny::stopApp({
         out <- make_request(input$prompt, input$code)
@@ -64,9 +63,10 @@ tutorialise_addin <- function() {
 
 make_request <- function(prompt, code) {
 
-   parse_response(chat_api(prompt = prompt))
+  parse_response(chat_api(prompt = prompt))
 
 }
+
 
 rstudio_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
