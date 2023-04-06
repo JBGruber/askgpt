@@ -17,7 +17,7 @@ document_code <- function(code, ...) {
 
   prompt <- glue::glue("Document this R function using roxygen2 syntax:",
                        "\n{code}")
-  out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE, ...)
+  out <- askgpt(prompt, chat = FALSE, return_answer = TRUE, ...)
 
   if (rstudio_available()) {
     if (!is.null(context)) {
@@ -44,7 +44,7 @@ annotate_code <- function(code, ...) {
 
   prompt <- glue::glue("Add inline comments to this R code:",
                        "\n{code}")
-  out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE, ...)
+  out <- askgpt(prompt, chat = FALSE, return_answer = TRUE, ...)
 
   if (rstudio_available()) {
     if (!is.null(context)) {
@@ -69,7 +69,7 @@ explain_code <- function(code, ...) {
   if (missing(code)) code <- get_selection()
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")
-  askgpt(prompt, chat = TRUE, stream = FALSE, ...)
+  askgpt(prompt, chat = TRUE, ...)
 }
 
 #' Test R code
@@ -81,6 +81,6 @@ test_function <- function(code, ...) {
   if (missing(code)) code <- get_selection()
   prompt <- glue::glue("Write a testthat unit test for this R function:",
                        "\n{code}")
-  askgpt(prompt, chat = TRUE, stream = FALSE, ...)
+  askgpt(prompt, chat = TRUE, ...)
 }
 

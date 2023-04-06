@@ -77,7 +77,7 @@ tutorialise_addin <- function() {
 
 
 build_tutorial <- function(prompt) {
-  out <- askgpt(prompt, chat = FALSE, stream = FALSE, return_answer = TRUE)
+  out <- askgpt(prompt, chat = FALSE, return_answer = TRUE)
   f <- tempfile("tutorial_", tmpdir = ".", fileext = ".rmd")
   writeLines(out, f)
   rstudioapi::documentOpen(f)

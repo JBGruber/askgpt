@@ -3,8 +3,6 @@
 #' @param prompt What you want to ask
 #' @param chat whether to use the chat API (i.e., the same model as ChatGPT) or
 #'   the completions API.
-#' @param stream Return pieces of the answer to the screen instead of waiting
-#'   for the request to be completed.
 #' @param progress Show a progress spinner while the request to the API has not
 #'   been fulfilled.
 #' @param return_answer Should the answer be returned as an object instead of
@@ -24,7 +22,6 @@
 #' }
 askgpt <- function(prompt,
                    chat = TRUE,
-                   stream = FALSE,
                    progress = TRUE,
                    return_answer = FALSE,
                    ...) {
@@ -43,16 +40,7 @@ askgpt <- function(prompt,
 
   callfun <- ifelse(chat, chat_api, completions_api)
 
-  if (stream) {
-
-    cli::cli_h1("Answer")
-    response <- callfun(
-      prompt = prompt,
-      stream = stream,
-      ...
-    )
-
-  } else if (progress) {
+  if (progress) {
 
     if (interactive()) cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
     key <- login()
@@ -79,21 +67,14 @@ askgpt <- function(prompt,
     )
   }
 
-  # if several answers are requested, collapse into one
-  if (chat) {
-    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]),
-                 collapse = "\n\n")
-  } else {
-    out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
-  }
+  out <- parse_response(response, chat)
 
   log_(prompt, out)
   if (interactive()) cli::cli_progress_done()
 
   if (return_answer) {
     return(out)
-  } else if (!stream) {
-    screen_answer(out)
+  } else {
+    invisible(response)
   }
-  invisible(response)
 }

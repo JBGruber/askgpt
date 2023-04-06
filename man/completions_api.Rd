@@ -9,7 +9,6 @@ completions_api(
   model = NULL,
   temperature = NULL,
   max_tokens = NULL,
-  stream = NULL,
   api_key = NULL,
   ...
 )
@@ -26,9 +25,6 @@ focused and deterministic).}
 
 \item{max_tokens}{The maximum number of tokens to generate in the completion.
 2048L is the maximum the models accept.}
-
-\item{stream}{logical value to indicate whether the response should be
-streamed.}
 
 \item{api_key}{set the API key. If NULL, looks for the env OPENAI_API_KEY.}
 
@@ -51,7 +47,6 @@ Only a few parameters are implemented by name. Most can be sent
      \item{the model used by default is "text-davinci-003"}
      \item{the default temperature is 0.2}
      \item{the default for max_tokens is 2048L}
-     \item{the default for stream is FALSE}
   }
 
   You can configure how \code{\link{askgpt}} makes requests by setting

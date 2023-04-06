@@ -9,7 +9,6 @@ chat_api(
   model = NULL,
   config = NULL,
   max_tokens = NULL,
-  stream = NULL,
   api_key = NULL,
   ...
 )
@@ -24,9 +23,6 @@ chat_api(
 
 \item{max_tokens}{The maximum number of tokens to generate in the completion.
 2048L is the maximum the models accept.}
-
-\item{stream}{logical value to indicate whether the response should be
-streamed.}
 
 \item{api_key}{set the API key. If NULL, looks for the env OPENAI_API_KEY.}
 

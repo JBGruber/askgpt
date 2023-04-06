@@ -50,6 +50,16 @@ new_conversation <- function() {
 }
 
 
+parse_response <- function(response, chat) {
+  # if several answers are requested, collapse into one
+  if (chat) {
+    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]),
+                 collapse = "\n\n")
+  } else {
+    out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
+  }
+}
+
 # internal function to format answers
 screen_answer <- function(x) {
   pars <- unlist(strsplit(x, "\n", fixed = TRUE))
