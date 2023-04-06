@@ -67,7 +67,7 @@ askgpt <- function(prompt,
     )
   }
 
-  out <- parse_response(response, chat)
+  out <- parse_response(response)
 
   log_(prompt, out)
   if (interactive()) cli::cli_progress_done()

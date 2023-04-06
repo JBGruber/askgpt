@@ -88,6 +88,7 @@ completions_api <- function(prompt,
       httr2::resp_body_json()
 
   resp$call <- req
+  resp$api <- "completions"
   return(resp)
 }
 
@@ -163,6 +164,7 @@ chat_api <- function(prompt,
   resp <- httr2::req_perform(req) |>
     httr2::resp_body_json()
   resp$call <- req
+  resp$api <- "chat"
   return(resp)
 }
 

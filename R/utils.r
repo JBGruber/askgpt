@@ -50,13 +50,22 @@ new_conversation <- function() {
 }
 
 
-parse_response <- function(response, chat) {
+#' Parse response from API functions
+#'
+#' @param response a response object from \code{\link{chat_api}} or
+#'   \code{\link{completions_api}}
+#'
+#' @return a character vector
+#' @export
+parse_response <- function(response) {
   # if several answers are requested, collapse into one
-  if (chat) {
-    out <- paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]),
-                 collapse = "\n\n")
+  if (isTRUE(response$api == "chat")) {
+    return(
+      paste(sapply(response[["choices"]], function(x) x[["message"]][["content"]]),
+            collapse = "\n\n")
+    )
   } else {
-    out <- paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n")
+    return(paste(sapply(response[["choices"]], `[[`, "text"), collapse = "\n\n"))
   }
 }
 
