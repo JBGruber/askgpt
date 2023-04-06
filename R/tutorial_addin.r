@@ -9,7 +9,7 @@
 tutorialise_addin <- function() {
 
   rlang::check_installed(
-    c("shiny", "miniUI"),
+    c("shiny", "miniUI", "shinycssloaders", "shinyjs"),
     "in order to use the tutorialise addin"
   )
 
@@ -21,77 +21,58 @@ tutorialise_addin <- function() {
       right = miniUI::miniTitleBarButton("done", "Tutorialise!", primary = TRUE)
     ),
     miniUI::miniContentPanel(
+      shinycssloaders::withSpinner(shiny::textOutput("spinner"), type = 7, size = 3),
+      shiny::textInput(
+        "prompt",
+        "Prompt",
+        value = "Turn this into a tutorial for beginners and explain how this code works, return it as an R Markdown document:",
+        width = "100%"
+      ),
+      shiny::tags$hr(),
       shiny::textAreaInput(
         "code",
         "Use this code?",
         value = rstudio_selection(),
-        width = "100%"
-      ),
-      shiny::textInput(
-        "target",
-        "Use this target audiece?",
-        value = "beginners",
-        width = "100%"
-      ),
-      shiny::textInput(
-        "goal",
-        "Use this goal?",
-        value = "how this code works",
-        width = "100%"
-      ),
-      shiny::tags$hr(),
-      shiny::actionButton("preview_button", "Preview prompt"),
-      shiny::textAreaInput(
-        "prompt",
-        "Prompt Preview",
         width = "100%",
         height = "400px"
-      ),
+      )
     )
   )
 
   server <- function(input, output, session) {
 
-    build_prompt <- shiny::eventReactive(input$preview_button, {
-      prompt_template(input$code, input$target, input$goal)
-    })
 
-    shiny::observeEvent(input$preview_button, {
-      shiny::updateTextInput(session, "prompt", value = build_prompt())
-    })
-
-    shiny::observeEvent(input$done, {
+    # does not really render text but needed to show spinner
+    prcs <- shiny::eventReactive(input$done, "GPT is thinking")
+    output$spinner <- renderText({
+      prcs()
       shiny::stopApp({
-        p <- ifelse(input$prompt == "",
-                    prompt_template(input$code, input$target, input$goal),
-                    input$prompt)
-        build_tutorial(p)
+        out <- make_request(input$prompt, input$code)
+        f <- tempfile("tutorial_", tmpdir = ".", fileext = ".rmd")
+        writeLines(out, f)
+        rstudioapi::documentOpen(f)
       })
     })
+
   }
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
-  shiny::runGadget(app, viewer = shiny::dialogViewer("Tutorialise R Code using ChatGPT"))
+  invisible(shiny::runGadget(app, viewer = shiny::dialogViewer("Tutorialise R Code using ChatGPT")))
 
 }
 
 
-build_tutorial <- function(prompt) {
-  out <- askgpt(prompt, chat = FALSE, return_answer = TRUE)
-  f <- tempfile("tutorial_", tmpdir = ".", fileext = ".rmd")
-  writeLines(out, f)
-  rstudioapi::documentOpen(f)
-}
+make_request <- function(prompt, code) {
 
-prompt_template <- function(code, target, goal) {
-  glue::glue("Turn this into a tutorial for {target} and explain {goal}, ",
-             "return it as an R Markdown document:",
-             "\n{code}")
+   parse_response(chat_api(prompt = prompt))
+
 }
 
 rstudio_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   out <- context$selection[[1L]]$text
-  if (out == "") out <- context$contents
-  return(out)
+  if (isTRUE(out == "") | length(out) == 0) out <- context$contents
+  if (isTRUE(out == "") | length(out) == 0) out <- rstudioapi::getSourceEditorContext()$contents
+  if (isTRUE(out == "") | length(out) == 0) out <- ""
+  return(paste(out, collapse = "\n"))
 }
