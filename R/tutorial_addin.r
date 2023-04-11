@@ -9,7 +9,7 @@
 tutorialise_addin <- function() {
 
   rlang::check_installed(
-    c("shiny", "miniUI", "shinycssloaders", "shinyjs"),
+    c("shiny", "miniUI", "shinycssloaders"),
     "in order to use the tutorialise addin"
   )
 
@@ -61,10 +61,47 @@ tutorialise_addin <- function() {
 }
 
 
+#' @importFrom rlang `%||%`
 make_request <- function(prompt, code) {
 
-  parse_response(chat_api(prompt = prompt))
+  # break into API size pieces
+  mod <- getOption("askgpt_chat_model") %||% "gpt-3.5-turbo"
+  max_tokens <- getOption("askgpt_max_tokens") %||% 2048L
+  tok_max <- dplyr::filter(token_limits, model == mod)[, "limit"] - max_tokens
 
+  tokens <- estimate_token(paste(prompt, code))
+
+  if (tokens > tok_max) {
+    cli::cli_alert_info(
+      c("The request is too long and is split into several prompts, which can take a ",
+        "long time to process. The final tutorial will have a line with `----` where ",
+        "responses were combined."), wrap = TRUE
+      )
+
+    # split into paragraphs
+    prompts <- split_prompt(code, tok_max = tok_max - estimate_token(prompt))
+    # glue prompts + this is the nth part + code chunk
+    prompts <- vapply(seq_along(prompts), function(i) {
+      glue::glue("{prompt}. This is the {i}th part of the code:\n{prompts[i]}")
+    }, FUN.VALUE = character(1L))
+
+    vapply(prompts, function(prompt) {
+      parse_response(chat_api(prompt = prompt))
+    }, FUN.VALUE = character(1L)) |>
+      paste(collapse = "\n----\n")
+  } else {
+    parse_response(chat_api(prompt = prompt))
+  }
+}
+
+# split long prompts
+split_prompt <- function(x, tok_max) {
+  pars <- strsplit(x, "\n")[[1]]
+  lens  <- estimate_token(pars)
+  # leave a margin of 20 for safety
+  bins <- cumsum(lens) %/% tok_max + 20
+  split_pars <- split(pars, bins)
+  vapply(split_pars, paste, collapse = "\n", FUN.VALUE = character(1))
 }
 
 
