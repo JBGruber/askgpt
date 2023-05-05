@@ -3,7 +3,7 @@ cache_response <- function(req) {
   prompt <- req[["body"]][["data"]][["prompt"]]
   if (is.null(prompt)) prompt <- tail(req[["body"]][["data"]][["messages"]][, 2], 1)
 
-  id <- paste0(req[["body"]][["data"]][["model"]], "_", substr(gsub("[ ?:]", "", prompt), 1, 25), ".rds")
+  id <- paste0(req[["body"]][["data"]][["model"]], "_", substr(gsub("[ ?:\n]", "", prompt), 1, 25), ".rds")
   path <- file.path("./responses", id)
 
   if (file.exists(path)) {

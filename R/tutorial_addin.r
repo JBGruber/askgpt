@@ -67,7 +67,7 @@ make_request <- function(prompt, code) {
   # break into API size pieces
   mod <- getOption("askgpt_chat_model") %||% "gpt-3.5-turbo"
   max_tokens <- getOption("askgpt_max_tokens") %||% 2048L
-  tok_max <- dplyr::filter(token_limits, model == mod)[, "limit"] - max_tokens
+  tok_max <- askgpt::token_limits[askgpt::token_limits$model == mod, "limit"] - max_tokens
 
   tokens <- estimate_token(paste(prompt, code))
 
