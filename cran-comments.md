@@ -1,13 +1,12 @@
-## Resubmission
+## Submission
 
-Thank you for the comments on my prior submission. I fixed the issues with the documentation. I also extended the package in the meantime, I hope it is okay to still call it a resubmission.
+This release fixes several smaller issues and adds some new convenice functions (see news.md)
 
 ## Test environments
 
+- locally using `devtools::check(cran = TRUE)`
 - rhub::check_for_cran()
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 note

@@ -1,4 +1,13 @@
-# askgpt 0.1.0
+# askgpt 0.1.1
+
+- better error handling
+- answers look better on screen and can handle Markdown code without breaking
+- new_conversation() function introduces the ability to make GPT forget previous questions
+- removes the streaming option, since it made little sense (see https://github.com/JBGruber/askgpt/issues/4)
+- improved the tutorialise adding to handle long documents and gave it a nicer interface
+- various bug fixes
+
+# askgpt 0.0.2
 
 First release to CRAN! This version introduces the core functionality of
 askgpt, which goal it is to make R more approachable by employing the power of
