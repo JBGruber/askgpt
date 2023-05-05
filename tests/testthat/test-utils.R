@@ -10,4 +10,8 @@ test_that("history as file", {
   }, "data.frame")
 })
 
+test_that("estimate number of tokens", {
+  expect_equal(estimate_token("This is a test", mult = 1.6), 7L)
+})
+
 

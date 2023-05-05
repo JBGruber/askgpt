@@ -69,6 +69,30 @@ parse_response <- function(response) {
   }
 }
 
+
+
+#' Estimate token count
+#'
+#' @details This function estimates how many tokens the API will make of the
+#' input words. For the models 1 word is more than one token. The default
+#' multiplier value resulted from testing the API. See
+#' <https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>
+#' for more information.
+#'
+#'
+#' @param x character vector
+#' @param mult the multiplier used
+#'
+#' @return a integer vector of token counts
+#' @export
+#'
+#' @examples
+#' estimate_token("this is a test")
+estimate_token <- function(x, mult = 1.6) {
+  ceiling(vapply(gregexpr("\\S+", x), length, FUN.VALUE = integer(1L)) * mult)
+}
+
+
 # internal function to format answers
 screen_answer <- function(x) {
   pars <- unlist(strsplit(x, "\n", fixed = TRUE))
