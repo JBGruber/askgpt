@@ -47,7 +47,7 @@ tutorialise_addin <- function() {
       prcs()
       shiny::stopApp({
         out <- make_request(input$prompt, input$code)
-        f <- tempfile("tutorial_", tmpdir = ".", fileext = ".rmd")
+        f <- paste0("tutorial_", gsub(pattern = "\\s+", "-", substr(input$prompt, 1, 50)), ".rmd")
         writeLines(out, f)
         rstudioapi::documentOpen(f)
       })
@@ -90,6 +90,8 @@ make_request <- function(prompt, code) {
     }, FUN.VALUE = character(1L)) |>
       paste(collapse = "\n----\n")
   } else {
+    prompt <- paste0(prompt, "\n", code)
+    message(prompt)
     parse_response(chat_api(prompt = prompt))
   }
 }

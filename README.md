@@ -112,13 +112,15 @@ examples</a></video>
 
 You can configure how `askgpt` makes that start with `askgpt_*`. For
 example, to use a different model to use in `askgpt()` use
-`options(askgpt_chat_model = "gpt-3.5-turbo-0301")`. If you use the
-completions instead of the chat API (`chat = FALSE` in `askgpt()`) use
+`options(askgpt_chat_model = "gpt-3.5-turbo-0301")` (or
+`options(askgpt_chat_model = "gpt-4")` if you have beta access to the
+newer model). If you use the completions instead of the chat API
+(`chat = FALSE` in `askgpt()`) use
 `options(askgpt_completions_model = "text-curie-001")`. It does not
 matter if the API parameter is listed in the function or not. All are
 used. See the complete list
 [here](https://platform.openai.com/docs/api-reference/chat) and
-[here](https://platform.openai.com/docs/api-reference/completions)
+[here](https://platform.openai.com/docs/api-reference/completions).
 
 The most important setting, however, is `askgpt_config`. This can be
 used to configure the chat using plain English:
