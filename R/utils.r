@@ -118,7 +118,7 @@ get_selection <- function(variables) {
   } else {
     cli::cli_abort("{.code code} is missing with no default")
   }
-  return(code)
+  return(list(context = context, code = code))
 }
 
 

@@ -13,7 +13,11 @@
 #' }
 document_code <- function(code, ...) {
   context <- NULL
-  if (missing(code)) code <- get_selection()
+  if (missing(code)) {
+    selection <- get_selection()
+    code <- selection$code
+    context <- selection$context
+  }
 
   prompt <- glue::glue("Document this R function using roxygen2 syntax:",
                        "\n{code}")
@@ -40,7 +44,11 @@ document_code <- function(code, ...) {
 #' @export
 annotate_code <- function(code, ...) {
   context <- NULL
-  if (missing(code)) code <- get_selection()
+  if (missing(code)) {
+    selection <- get_selection()
+    code <- selection$code
+    context <- selection$context
+  }
 
   prompt <- glue::glue("Add inline comments to this R code:",
                        "\n{code}")
@@ -66,7 +74,11 @@ annotate_code <- function(code, ...) {
 #' @return A character vector.
 #' @export
 explain_code <- function(code, ...) {
-  if (missing(code)) code <- get_selection()
+  if (missing(code)) {
+    selection <- get_selection()
+    code <- selection$code
+    context <- selection$context
+  }
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")
   askgpt(prompt, chat = TRUE, ...)
@@ -78,7 +90,11 @@ explain_code <- function(code, ...) {
 #' @return A character vector.
 #' @export
 test_function <- function(code, ...) {
-  if (missing(code)) code <- get_selection()
+  if (missing(code)) {
+    selection <- get_selection()
+    code <- selection$code
+    context <- selection$context
+  }
   prompt <- glue::glue("Write a testthat unit test for this R function:",
                        "\n{code}")
   askgpt(prompt, chat = TRUE, ...)
