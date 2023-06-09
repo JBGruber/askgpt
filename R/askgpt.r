@@ -75,6 +75,7 @@ askgpt <- function(prompt,
   if (return_answer) {
     return(out)
   } else {
+    screen_answer(out)
     invisible(response)
   }
 }
