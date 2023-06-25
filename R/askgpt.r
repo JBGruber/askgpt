@@ -39,6 +39,8 @@ askgpt <- function(prompt,
   }
 
   callfun <- ifelse(chat, chat_api, completions_api)
+  # api function can be replaced with random function (for testing)
+  if("callfun" %in% names(list(...))) callfun <- list(...)$callfun
 
   if (progress) {
 

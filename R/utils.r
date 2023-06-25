@@ -70,7 +70,6 @@ parse_response <- function(response) {
 }
 
 
-
 #' Estimate token count
 #'
 #' @details This function estimates how many tokens the API will make of the
@@ -97,7 +96,7 @@ estimate_token <- function(x, mult = 1.6) {
 screen_answer <- function(x) {
   pars <- unlist(strsplit(x, "\n", fixed = TRUE))
   cli::cli_h1("Answer")
-  # "{i}" insetead of i stops glue from evaluating code inside the answer
+  # "{i}" instead of i stops glue from evaluating code inside the answer
   for (i in pars) cli::cli_text("{i}")
 }
 

@@ -5,7 +5,8 @@ test_that("retrieve key", {
 
 test_that("key cache", {
   skip_on_cran()
-  temp_cache <- tempdir()
+  temp_cache <- paste0(tempfile("keys"), "/")
+  dir.create(temp_cache)
   expect_length(
     {
       login(cache_dir = temp_cache, no_cache = TRUE)
