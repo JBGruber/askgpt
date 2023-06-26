@@ -1,3 +1,7 @@
+# askgpt 0.1.2
+
+- fixed bug that would keep the package from printing answers to screen 
+
 # askgpt 0.1.1
 
 - better error handling

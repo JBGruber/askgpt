@@ -1,7 +1,7 @@
 Package: askgpt
 Type: Package
 Title: Asking GPT About R Stuff
-Version: 0.1.1.9000
+Version: 0.1.2
 Authors@R: person("Johannes", "Gruber", email = "johannesb.gruber@gmail.com",
   role = c("aut", "cre"))
 Description: A chat package connecting to API endpoints by 'OpenAI' 

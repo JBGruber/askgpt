@@ -1,6 +1,6 @@
 ## Submission
 
-This release fixes several smaller issues and adds some new convenice functions (see news.md)
+This release fixes a bug that kept the functions from printing output
 
 ## Test environments
 
