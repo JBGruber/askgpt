@@ -13,5 +13,3 @@ test_that("history as file", {
 test_that("estimate number of tokens", {
   expect_equal(estimate_token("This is a test", mult = 1.6), 7L)
 })
-
-

@@ -75,9 +75,7 @@ annotate_code <- function(code, ...) {
 #' @export
 explain_code <- function(code, ...) {
   if (missing(code)) {
-    selection <- get_selection()
-    code <- selection$code
-    context <- selection$context
+    code <- get_selection()$code
   }
   prompt <- glue::glue("Explain the following R code to me:",
                        "\n{code}")
@@ -91,12 +89,9 @@ explain_code <- function(code, ...) {
 #' @export
 test_function <- function(code, ...) {
   if (missing(code)) {
-    selection <- get_selection()
-    code <- selection$code
-    context <- selection$context
+    code <- get_selection()$code
   }
   prompt <- glue::glue("Write a testthat unit test for this R function:",
                        "\n{code}")
   askgpt(prompt, chat = TRUE, ...)
 }
-

@@ -110,8 +110,8 @@ split_prompt <- function(x, tok_max) {
 rstudio_selection <- function() {
   context <- rstudioapi::getActiveDocumentContext()
   out <- context$selection[[1L]]$text
-  if (isTRUE(out == "") | length(out) == 0) out <- context$contents
-  if (isTRUE(out == "") | length(out) == 0) out <- rstudioapi::getSourceEditorContext()$contents
-  if (isTRUE(out == "") | length(out) == 0) out <- ""
+  if (isTRUE(out == "") || length(out) == 0) out <- context$contents
+  if (isTRUE(out == "") || length(out) == 0) out <- rstudioapi::getSourceEditorContext()$contents
+  if (isTRUE(out == "") || length(out) == 0) out <- ""
   return(paste(out, collapse = "\n"))
 }

@@ -79,7 +79,7 @@ askgpt("Can you elaborate on that?")
 You can configure how `askgpt` makes that start with `askgpt_*`.
 For example, to use a different model to use in `askgpt()` use `options(askgpt_chat_model = "gpt-3.5-turbo-0301")` (or `options(askgpt_chat_model = "gpt-4")` if you have beta access to the newer model).
 If you use the completions instead of the chat API (`chat = FALSE` in `askgpt()`) use `options(askgpt_completions_model = "text-curie-001")`.
-It does not matter if the API parameter is listed in the function or not. 
+It does not matter if the API parameter is listed in the function or not.
 All are used.
 See the complete list [here](https://platform.openai.com/docs/api-reference/chat) and [here](https://platform.openai.com/docs/api-reference/completions).
 
@@ -89,7 +89,7 @@ This can be used to configure the chat using plain English:
 ```{r}
 options(askgpt_config = "I'm 8 years old, please explain things easily")
 askgpt("What is an R function?")
-#> 
+#>
 #> ── Answer ──────────────────────────────────────────────────────────────────────
 #> An R function is like giving your friend a set of instructions to perform a
 #> particular task. In R programming, a function is a set of instructions or steps
@@ -97,16 +97,16 @@ askgpt("What is an R function?")
 #> those instructions. A function can take information or inputs, do something
 #> with those inputs (like adding or subtracting), and then give the result back
 #> as output.
-#> 
+#>
 #> For example, think about giving your friend the instructions to make a peanut
 #> butter sandwich. The instructions might be:
-#> 
+#>
 #> 1. Take two slices of bread 2. Spread peanut butter on one slice 3. Spread
 #> jelly on the other slice 4. Put the two slices together
-#> 
+#>
 #> In R, a function might take a number (like 5) and add 1 to it, and then return
 #> the result (which would be 6).
-#> 
+#>
 #> Functions in R are used to make code easier to use, understand, and reuse. They
 #> can also help programmers write complex and efficient programs.
 ```

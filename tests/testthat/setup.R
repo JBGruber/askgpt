@@ -24,4 +24,3 @@ mockcall <- function(...) {
     choices = list(list(message = list(content = "test")))
   )
 }
-
