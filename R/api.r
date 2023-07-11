@@ -169,7 +169,11 @@ chat_api <- function(prompt,
 }
 
 error_body <- function(resp) {
-  httr2::resp_body_json(resp)$error$message
+  msg <- httr2::resp_body_json(resp)$error$message
+  if (httr2::resp_status(resp) == 401L) {
+    msg <- c(msg, "This error can also mean that you ran out of credit. Check https://platform.openai.com/account/usage")
+  }
+  msg
 }
 
 

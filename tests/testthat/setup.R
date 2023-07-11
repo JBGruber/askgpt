@@ -24,3 +24,13 @@ mockcall <- function(...) {
     choices = list(list(message = list(content = "test")))
   )
 }
+
+mock_error <- function(req) {
+  httr2::response(
+    429,
+    method = "POST",
+    headers = list("content-type" = "application/json; charset=utf-8"),
+    body = charToRaw(jsonlite::toJSON(list(error = list(message = "test"))))
+  )
+}
+
