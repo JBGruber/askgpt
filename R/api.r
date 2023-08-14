@@ -127,7 +127,7 @@ chat_api <- function(prompt,
   if (!is.null(params$stream)) cli::cli_warn("The streaming feature has been removed from the package.")
   askopts <- grep("^askgpt_", names(.Options), value = TRUE) |>
     setdiff(c("askgpt_chat_model", "askgpt_key", "askgpt_config",
-              "askgpt_temperature", "askgpt_max_tokens", "askgpt_stream"))
+              "askgpt_max_tokens", "askgpt_stream"))
   for (par in askopts) {
     params[gsub("askgpt_", "", par, fixed = TRUE)] <- getOption(par)
   }

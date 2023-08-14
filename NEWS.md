@@ -1,3 +1,7 @@
+# askgpt 0.1.3
+
+- fixes bug that ignored some options when askgpt() was run with spinner
+
 # askgpt 0.1.2
 
 - fixed bug that would keep the package from printing answers to screen 

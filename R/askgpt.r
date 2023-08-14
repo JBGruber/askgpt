@@ -47,11 +47,22 @@ askgpt <- function(prompt,
     if (interactive()) cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
     key <- login()
 
+    # collect additional options
+    opts <- grep("^askgpt_", names(.Options), value = TRUE) |>
+      setdiff(c("askgpt_chat_model", "askgpt_completions_model", "askgpt_key",
+                "askgpt_config", "askgpt_max_tokens", "askgpt_stream"))
+    askopts <- lapply(opts, getOption)
+    names(askopts) <- opts
+
     rp <- callr::r_bg(callfun,
                       args = list(prompt = prompt,
                                   api_key = key,
+                                  model = ifelse(chat, getOption("askgpt_chat_model"),
+                                                 getOption("askgpt_completions_model")),
                                   config = getOption("askgpt_config"),
+                                  max_tokens = getOption("askgpt_max_tokens"),
                                   hist = c(rbind(prompt_history(), response_history())),
+                                  askopts,
                                   ...),
                       package = TRUE)
 
