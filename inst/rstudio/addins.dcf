@@ -22,3 +22,8 @@ Name: Tutorialise Code
 Description: Use GPT to turn code into a tutorial.
 Binding: tutorialise_addin
 Interactive: true
+
+Name: Improve
+Description: Use GPT to improve existing code, documentation, or writing.
+Binding: improve_addin
+Interactive: true

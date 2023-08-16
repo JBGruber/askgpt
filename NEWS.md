@@ -1,6 +1,7 @@
 # askgpt 0.1.3
 
 - fixes bug that ignored some options when askgpt() was run with spinner
+- adds an addin that can improve code, documentation, or writing given a prompt
 
 # askgpt 0.1.2
 

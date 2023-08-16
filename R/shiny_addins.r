@@ -13,6 +13,9 @@ tutorialise_addin <- function() {
     "in order to use the tutorialise addin"
   )
 
+  p <- the$tutorialise_prompt
+  if (is.null(p)) p <- "Turn this into a tutorial for beginners and explain how this code works, return it as an R Markdown document:"
+
   ui <- miniUI::miniPage(
     miniUI::gadgetTitleBar(
       shiny::p(
@@ -25,7 +28,7 @@ tutorialise_addin <- function() {
       shiny::textInput(
         "prompt",
         "Prompt",
-        value = "Turn this into a tutorial for beginners and explain how this code works, return it as an R Markdown document:",
+        value = p,
         width = "100%"
       ),
       shiny::tags$hr(),
@@ -46,6 +49,7 @@ tutorialise_addin <- function() {
     output$spinner <- shiny::renderText({
       prcs()
       shiny::stopApp({
+        the$tutorialise_prompt <- input$prompt
         out <- make_request(input$prompt, input$code)
         f <- paste0("tutorial_", gsub(pattern = "\\s+", "-", substr(input$prompt, 1, 50)), ".rmd")
         writeLines(out, f)
@@ -57,6 +61,73 @@ tutorialise_addin <- function() {
 
   app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
   invisible(shiny::runGadget(app, viewer = shiny::dialogViewer("Tutorialise R Code using ChatGPT")))
+
+}
+
+
+#' Improve code/documentation/writing using a prompt
+#'
+#' @description `tutorialise_addin()` opens an [RStudio
+#'   gadget](https://shiny.rstudio.com/articles/gadgets.html) and
+#'   [addin](http://rstudio.github.io/rstudioaddins/) that can be used to
+#'   improve existing code, documentation, or writing.
+#'
+#' @return No return value, opens a new file in RStudio
+improve_addin <- function() {
+
+  rlang::check_installed(
+    c("shiny", "miniUI", "shinycssloaders"),
+    "in order to use the tutorialise addin"
+  )
+
+  p <- the$improve_prompt
+  if (is.null(p)) p <- "Improve this code/documentation/writing:"
+
+  ui <- miniUI::miniPage(
+    miniUI::gadgetTitleBar(
+      shiny::p(
+        "Improve code/documentation/writing"
+      ),
+      right = miniUI::miniTitleBarButton("done", "Improve!", primary = TRUE)
+    ),
+    miniUI::miniContentPanel(
+      shinycssloaders::withSpinner(shiny::textOutput("spinner"), type = 7, size = 3),
+      shiny::textInput(
+        "prompt",
+        "Prompt",
+        value = p,
+        width = "100%"
+      ),
+      shiny::tags$hr(),
+      shiny::textAreaInput(
+        "code",
+        "Use this?",
+        value = rstudio_selection(),
+        width = "100%",
+        height = "400px"
+      )
+    )
+  )
+
+  server <- function(input, output, session) {
+
+    # does not really render text but needed to show spinner
+    prcs <- shiny::eventReactive(input$done, "GPT is thinking")
+    output$spinner <- shiny::renderText({
+      prcs()
+      shiny::stopApp({
+        the$improve_prompt <- input$prompt
+        out <- make_request(input$prompt, input$code)
+        f <- tempfile(fileext = ".txt")
+        writeLines(out, f)
+        rstudioapi::documentOpen(f)
+      })
+    })
+
+  }
+
+  app <- shiny::shinyApp(ui, server, options = list(quiet = TRUE))
+  invisible(shiny::runGadget(app, viewer = shiny::dialogViewer("Improve input using ChatGPT")))
 
 }
 
