@@ -162,7 +162,6 @@ make_request <- function(prompt, code) {
       paste(collapse = "\n----\n")
   } else {
     prompt <- paste0(prompt, "\n", code)
-    message(prompt)
     parse_response(chat_api(prompt = prompt))
   }
 }

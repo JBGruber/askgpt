@@ -61,8 +61,8 @@ completions_api <- function(prompt,
   params$config <- NULL
 
   askopts <- grep("^askgpt_", names(.Options), value = TRUE) |>
-    setdiff(c("askgpt_completions_model", "askgpt_key", "askgpt_temperature",
-              "askgpt_max_tokens", "askgpt_stream"))
+    setdiff(c("askgpt_chat_model", "askgpt_completions_model", "askgpt_config",
+              "askgpt_key", "askgpt_max_tokens", "askgpt_stream", "askgpt_temperature"))
   for (par in askopts) {
     params[gsub("askgpt_", "", par, fixed = TRUE)] <- getOption(par)
   }
@@ -126,8 +126,8 @@ chat_api <- function(prompt,
   params <- list(...)
   if (!is.null(params$stream)) cli::cli_warn("The streaming feature has been removed from the package.")
   askopts <- grep("^askgpt_", names(.Options), value = TRUE) |>
-    setdiff(c("askgpt_chat_model", "askgpt_key", "askgpt_config",
-              "askgpt_max_tokens", "askgpt_stream"))
+    setdiff(c("askgpt_chat_model", "askgpt_completions_model", "askgpt_config",
+              "askgpt_key", "askgpt_max_tokens", "askgpt_stream", "askgpt_temperature"))
   for (par in askopts) {
     params[gsub("askgpt_", "", par, fixed = TRUE)] <- getOption(par)
   }

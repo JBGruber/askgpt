@@ -47,6 +47,16 @@ askgpt <- function(prompt,
     if (interactive()) cli::cli_progress_step("GPT is thinking {cli::pb_spin}")
     key <- login()
 
+    args = list(prompt = prompt,
+                api_key = key,
+                config = getOption("askgpt_config"),
+                max_tokens = getOption("askgpt_max_tokens"),
+                hist = c(rbind(prompt_history(), response_history())),
+                ...)
+
+    args$model <- switch(chat, getOption("askgpt_chat_model"),
+                         getOption("askgpt_completions_model"))
+
     # collect additional options
     opts <- grep("^askgpt_", names(.Options), value = TRUE) |>
       setdiff(c("askgpt_chat_model", "askgpt_completions_model", "askgpt_key",
@@ -54,16 +64,12 @@ askgpt <- function(prompt,
     askopts <- lapply(opts, getOption)
     names(askopts) <- opts
 
+    if (length(askopts) > 0) {
+      args <- c(args, askopts)
+    }
+
     rp <- callr::r_bg(callfun,
-                      args = list(prompt = prompt,
-                                  api_key = key,
-                                  model = ifelse(chat, getOption("askgpt_chat_model"),
-                                                 getOption("askgpt_completions_model")),
-                                  config = getOption("askgpt_config"),
-                                  max_tokens = getOption("askgpt_max_tokens"),
-                                  hist = c(rbind(prompt_history(), response_history())),
-                                  askopts,
-                                  ...),
+                      args = args,
                       package = TRUE)
 
     if (interactive()) while (rp$is_alive()) {
