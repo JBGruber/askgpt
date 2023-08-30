@@ -132,3 +132,19 @@ log_ <- function(prompt, response, loc = Sys.getenv("askgpt_log_location")) {
     close(con)
   }
 }
+
+
+# get all askgpt options
+get_askopts <- function(diff = NULL) {
+  grep("^askgpt_", names(.Options), value = TRUE) |>
+    # exclude options dealt with elsewhere
+    setdiff(c(
+      "askgpt_chat_model",
+      "askgpt_completions_model",
+      "askgpt_config",
+      "askgpt_key",
+      "askgpt_max_tokens",
+      "askgpt_stream",
+      "askgpt_temperature"
+    ))
+}
