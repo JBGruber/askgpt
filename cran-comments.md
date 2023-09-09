@@ -1,6 +1,6 @@
 ## Submission
 
-This release fixes a bug that kept the functions from printing output
+This release fixes a bug made the package ignore user options in some cases and adds a new RStudio addin.
 
 ## Test environments
 
