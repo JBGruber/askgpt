@@ -4,7 +4,7 @@
 #'
 #' @param prompt character string of the prompt to be completed.
 #' @param model character string of the model to be used (defaults to
-#'   "text-davinci-003").
+#'   "gpt-3.5-turbo-instruct").
 #' @param temperature numeric value between 0 and 1 to control the randomness of
 #'   the output (defaults to 0.2; lower values like 0.2 will make answers more
 #'   focused and deterministic).
@@ -20,7 +20,7 @@
 #'
 #'   A couple of defaults are used by the package:
 #'   \itemize{
-#'      \item{the model used by default is "text-davinci-003"}
+#'      \item{the model used by default is "gpt-3.5-turbo-instruct"}
 #'      \item{the default temperature is 0.2}
 #'      \item{the default for max_tokens is 2048L}
 #'   }
@@ -47,7 +47,7 @@ completions_api <- function(prompt,
                             api_key = NULL,
                             ...) {
 
-  model <- model %||% getOption("askgpt_completions_model") %||% "text-davinci-003"
+  model <- model %||% getOption("askgpt_completions_model") %||% "gpt-3.5-turbo-instruct"
   temperature <- temperature %||% getOption("askgpt_temperature") %||% 0.2
   max_tokens <- max_tokens %||% getOption("askgpt_max_tokens") %||% 2048L
   api_key <- api_key %||% login()
@@ -206,4 +206,39 @@ list_models <- function(api_key = NULL) {
     httr2::resp_body_json()
 
   dplyr::bind_rows(resp$data)
+}
+
+
+create_img <- function(prompt,
+                       n = 4,
+                       size = c("256x256", "512x512", "1024x1024"),
+                       download_folder = NULL,
+                       api_key = NULL) {
+
+  api_key <- api_key %||% login()
+
+  body <- list(
+    prompt = prompt,
+    n = n,
+    size = size[1],
+    response_format = "url"
+  )
+
+  req <- httr2::request("https://api.openai.com/v1/images/generations") |>
+    httr2::req_headers(
+      "Content-Type" = "application/json",
+      "Authorization" = glue::glue("Bearer {api_key}")
+    ) |>
+    httr2::req_body_json(body) |>
+    httr2::req_error(body = error_body)
+
+  resp <- httr2::req_perform(req) |>
+    httr2::resp_body_json()
+
+  links <- purrr::map_chr(resp$data, "url")
+  if (!is.null(download_folder)) {
+    curl::multi_download(
+      links, destfiles = file.path(download_folder, paste0(seq_len(n), ".png"))
+    )
+  }
 }

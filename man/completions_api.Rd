@@ -17,7 +17,7 @@ completions_api(
 \item{prompt}{character string of the prompt to be completed.}
 
 \item{model}{character string of the model to be used (defaults to
-"text-davinci-003").}
+"gpt-3.5-turbo-instruct").}
 
 \item{temperature}{numeric value between 0 and 1 to control the randomness of
 the output (defaults to 0.2; lower values like 0.2 will make answers more
@@ -44,7 +44,7 @@ Only a few parameters are implemented by name. Most can be sent
 
   A couple of defaults are used by the package:
   \itemize{
-     \item{the model used by default is "text-davinci-003"}
+     \item{the model used by default is "gpt-3.5-turbo-instruct"}
      \item{the default temperature is 0.2}
      \item{the default for max_tokens is 2048L}
   }

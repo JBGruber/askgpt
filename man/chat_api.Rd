@@ -17,7 +17,7 @@ chat_api(
 \item{prompt}{character string of the prompt to be completed.}
 
 \item{model}{character string of the model to be used (defaults to
-"text-davinci-003").}
+"gpt-3.5-turbo-instruct").}
 
 \item{config}{a configuration prompt to tell the model how it should behave.}
 
